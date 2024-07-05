@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-between">
-        <div class="flex items-center">
+        <div class="flex items-center py-2">
             <a href="/">
                 <img src="../../../public/assets/img/logo.png" class="max-h-12 max-w-full mx-auto" alt="logo">
             </a>
