@@ -1,4 +1,5 @@
 <template>
+    sdfsdf
     <div v-if="(gacha.count_rest>0 && gacha.productCount!=0)" class="w-[84%] md:max-w-[360px] mx-auto flex justify-center">
         <button  @click="clickgacha(10)" :class="{ 'opacity-50': processing }" :disabled="processing" class="cursor-pointer m-1 rounded-[5px] bg-[#896858] text-white text-sm text-center w-[48%]">
             <div class="m-2">
@@ -34,12 +35,8 @@
 </template>
 
 <script>
-import { Link, usePage, useForm } from '@inertiajs/inertia-vue3';
-import {PlayIcon} from "@heroicons/vue/24/solid";
-
 
 export default {
-    components: {Link, PlayIcon},
     props: {
         gacha: Object,
     }, 

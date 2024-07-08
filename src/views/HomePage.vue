@@ -1,56 +1,40 @@
 <template>
-  <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Blank</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
-    </ion-content>
-  </ion-page>
+    <Layout>
+        <div class="px-4 mb-8 grid sm:grid-cols-2 grid-cols-1 gap-4">
+            <template v-for="(gacha, key) in gachas">
+                <GachaCard v-if="gacha.count_rest" :gacha="gacha"/>
+            </template> 
+            <template v-for="(gacha, key) in gachas">
+                <GachaCard v-if="!gacha.count_rest" :gacha="gacha"/>
+            </template>
+        </div>
+    </Layout>
 </template>
 
-<script setup lang="ts">
-  import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+<script>
+import Layout from './Layout.vue';
+import axios from 'axios';
+import GachaCard from './parts/GachaCard.vue';
+
+export default {
+    components: { Layout, GachaCard },
+    
+    data() {
+        return {
+            gachas: []
+        }
+    },
+    methods: {
+        getGachas() {
+            axios.get(`http://127.0.0.1/api/gachas`).then(res => {
+                if (res.data.success) {
+                    this.gachas = res.data.gachas;
+                }
+            });
+        }
+    },
+    mounted() {
+        this.getGachas();
+    }
+}
 </script>
-
-<style scoped>
-#container {
-  text-align: center;
-  
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-}
-</style>

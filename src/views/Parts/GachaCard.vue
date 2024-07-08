@@ -1,31 +1,14 @@
 <template>
     <div  class="cursor-pointer border-4 border-[#60493d] mb-0 relative rounded-[20px] shadow w-full bg-cover overflow-hidden bg-[#60493d]">
-        <div @click="clickCard()">
+        <div @click="clickCard">
             <img v-bind:src=gacha.thumbnail />
         </div>
         
-        <template v-if="url_edit">
-            <Link :href="url_edit" class="absolute z-20 top-0 right-0 items-center px-8 py-2.5 bg-green-500 border border-transparent rounded-sm font-semibold text-sm text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-700 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition ease-in-out duration-150">
-                編集する
-            </Link>
-            <div v-if="(gacha.status==1)" class="absolute z-20 top-0 left-0 items-center px-2 py-1 bg-green-500 border border-transparent rounded-sm font-semibold text-sm text-white tracking-widest ">
-                公開
-            </div>
-            <div v-else class="absolute z-20 top-0 left-0 items-center px-2 py-1 bg-neutral-500 border border-transparent rounded-sm font-semibold text-sm text-white tracking-widest ">
-                非公開
-            </div>
-
-            <button @click="destroyGacha(gacha.id)" class="z-20 rounded absolute bottom-0 right-0 px-4 py-2 bg-red-500 text-xs text-neutral-50">
-                削除
-            </button>
-        </template>
-        
-        
-        <div v-if="(gacha.count_rest==0 && !url_edit)" class="absolute bottom-0 w-full h-full bg-opacity-70 z-10 bg-black flex items-center justify-center" @click="clickCard()">
-            <img src="/images/sold_out.png" class="w-[75%]"/>
+        <div v-if="gacha.count_rest==0" class="absolute bottom-0 w-full h-full bg-opacity-70 z-10 bg-black flex items-center justify-center">
+            <img v-bind:src="SERVER_URL + '/images/sold_out.png'" class="w-[75%]"/>
         </div>
 
-        <div class="bottom-0 w-full  p-2 rounded-b-[20px]">
+        <div class="bottom-0 w-full p-2 rounded-b-[20px]">
             <div class="px-4 text-white">
                 <div class="px-1 flex flex-row justify-between mb-1">
                     <div>
@@ -50,24 +33,20 @@
 </template>
 
 <script>
-import { Link, usePage } from '@inertiajs/inertia-vue3';
-import { Inertia } from '@inertiajs/inertia';
-import { PlayIcon } from "@heroicons/vue/24/solid";
+
+import { SERVER_URL } from '../../config';
+import { useIonRouter } from '@ionic/vue';
 
 export default {
-    components: {Link, PlayIcon},
     props: {
         gacha: Object,
-        url_edit: String,
     }, 
     data () {
         return {
-            category_share: usePage().props.value.category_share,
-            url_card: "",
-            url_10gacha: "",
-            url_1gacha: "",
+            url_card: "#",
             str_gacha10: "",
             point_10gacha: 0,
+            SERVER_URL
         };
     },  
     methods: {
@@ -87,18 +66,18 @@ export default {
         }, 
 
         clickCard() {
-            if(this.gacha.count_rest>0 || usePage().props.value.auth.user?.type > 0) {
-                window.location.href = this.url_card;
-            }
-        },
-
-        destroyGacha (id) {
-            if (confirm("削除してもいいですか？")) {
-                Inertia.delete(route('admin.gacha.destroy', {'id': id}));
+            if(this.gacha.count_rest>0) {
+                this.ionRouter.push({
+                    name: 'gacha_detail',
+                    params: {
+                        id: this.gacha.id
+                    }
+                });
             }
         }
     },
     mounted() {
+        this.gacha.thumbnail = SERVER_URL + this.gacha.thumbnail;
         if(this.gacha.count_rest<10) { 
             this.str_gacha10 = "全て";
             this.point_10gacha = this.gacha.count_rest * this.gacha.point;
@@ -106,10 +85,10 @@ export default {
             this.str_gacha10 = "10連";
             this.point_10gacha = 10 * this.gacha.point;
         }
-
-        if(!this.url_edit) {
-            this.url_card = route('user.gacha', this.gacha.id) + this.category_share.cat_route_appendix;
-        }
-    }
+    },
+    setup() {
+        const ionRouter = useIonRouter();
+        return { ionRouter };
+    },
 }
 </script>

@@ -13,14 +13,11 @@
 </template>
 
 <script>
-import { Link, usePage } from '@inertiajs/inertia-vue3';
-
 
 export default {
-    components: {Link},
     data(){
         return {
-            category_share: usePage().props.value.category_share,
+            category_share: [],
             current_route: "",
         }  
     },

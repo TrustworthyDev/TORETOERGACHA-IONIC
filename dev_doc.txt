@@ -1,0 +1,43 @@
+API
+
+[GET]
+[POST] 
+[POST] /api/auth/login  { email, password }
+
+[POST] /api/auth/register/send  { email }
+[POST] /api/auth/register/verify  { email, verification_code }
+
+[POST] /api/auth/register  { email, phone_number, password }
+
+[GET]  /api/auth/profile
+
+[GET]  /api/categories/
+
+[GET]  /api/gachas/{cat_id}/
+[GET]  /api/gachas/detail/{id}
+
+[POST] /api/gacha/start/  {gacha_id, number}
+[GET]  /api/gacha/result/{token}
+[POST] /api/gacha/result/exchange
+[GET]  /api/gacha/end/{token}
+
+
+[GET]  /api/points
+[POST] /api/point/purchase/register/  { point_id, payment_method}
+[POST] /api/point/purchase/process/   { point_id, order_id, access_id, payment_method }
+
+[GET]  /api/products
+[POST] /api/products/point_exchange   { product_ids }
+[POST] /api/products/delivery         { product_ids }
+
+[GET]  /api/coupons/
+[POST] /api/coupons/                {coupon_code}
+
+[GET]  /api/profile/
+[POST] /api/profile    { first_name, last_name, first_name_gana, last_name_gana, postal_code, prefecture, address, phone, }
+
+
+[GET]  /api/notifications
+[GET] /api/notification/id/view
+
+[GET]  /api/ranking
