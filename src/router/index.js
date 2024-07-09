@@ -15,6 +15,7 @@ import Profile from '../views/Client/Profile/index.vue';
 import Point from '../views/Client/Point/Index.vue';
 import Products from '../views/Client/Products/Index.vue';
 import Address from '../views/Client/Address/Index.vue';
+import Coupon from '../views/Client/Coupon/Index.vue';
 
 const routes = [
     {
@@ -61,6 +62,11 @@ const routes = [
         path: '/address',
         name: 'address',
         component: Address
+    },
+    {
+        path: '/coupon',
+        name: 'coupon',
+        component: Coupon
     },
     // {
     //     path: '/main/terms_conditions',

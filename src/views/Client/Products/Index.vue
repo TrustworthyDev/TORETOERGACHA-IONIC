@@ -7,15 +7,15 @@
             <div class="pt-3 pb-1 mx-4 px-4 mb-3 border-black">
                 <h1 class="mb-8 text-lg text-center font-bold underline underline-offset-8">&nbsp;&nbsp;&nbsp;獲得した商品一覧&nbsp;&nbsp;&nbsp;</h1>
                 <div class="w-full text-neutral-600 mb-3">
-                    <Link v-for="(item, key) in main_tab" :href="item.route_url" class="inline-block md:px-8 px-4 py-1.5" :class="{'bg-[#896858] text-white': item.is_active}">
+                    <a v-for="(item, key) in main_tab" class="inline-block md:px-8 px-4 py-1.5" :class="{'bg-[#896858] text-white': item.is_active}" @click="change_tab(item.id)">
                         {{item.title}}
-                    </Link>
+                    </a>
                 </div>
             </div>
             <div class="grid md:grid-cols-2 gap-1">
-                <div v-for="(item, key) in products.data" class="mt-1 py-2 px-3 hover:bg-sky-50 focus:bg-sky-50">
+                <div v-for="(item, key) in products" class="mt-1 py-2 px-3 hover:bg-sky-50 focus:bg-sky-50">
                     <div class="flex border-neutral-200 items-start">
-                        <input :id="'checkbox' + item.id" v-model="form.checks['id'+item.id]" type="checkbox" @change="changeCheck()" class="cursor-pointer border-neutral-300 text-blue-600 shadow-sm focus:ring-0 m-1"/>
+                        <input :id="'checkbox' + item.id" v-model="form.checks['id'+item.id]" type="checkbox" @change="changeCheck()" class="cursor-pointer border-neutral-300 text-blue-600 shadow-sm focus:ring-0 m-1 background:white"/>
                             
                         <label :for="'checkbox' + item.id" class="cursor-pointer flex items-start justify-center inline-block text-sm py-1">
                             <img :src="item.image" class="w-32 h-32 inline-block object-contain"/>
@@ -45,12 +45,12 @@
             </div>
             
             <div class="mb-8 pb-8 text-center text-neutral-50">
-                <button type="button" @click="submit('point')" :class="{ 'opacity-25': form.processing || (!hasCheck) }" :disabled="form.processing || (!hasCheck)" class="w-40 inline-block items-center px-4 py-2 bg-[#896858] hover:bg-[#60493d] font-semibold text-sm text-white uppercase tracking-widest active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:shadow-outline-blue transition ease-in-out duration-150 m-1">
+                <!-- <button type="button" @click="submit('point')" :class="{ 'opacity-25': form.processing || (!hasCheck) }" :disabled="form.processing || (!hasCheck)" class="w-40 inline-block items-center px-4 py-2 bg-[#896858] hover:bg-[#60493d] font-semibold text-sm text-white uppercase tracking-widest active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:shadow-outline-blue transition ease-in-out duration-150 m-1">
                     <div>ポイントに換える</div>
                 </button>
                 <button type="button" @click="submit('delivery')" :class="{ 'opacity-25': form.processing || (!hasCheck) }" :disabled="form.processing || (!hasCheck)" class="w-40 inline-block items-center px-4 py-2 hover:bg-[#896858] bg-[#60493d] font-semibold text-sm text-white uppercase tracking-widest active:bg-indigo-500 focus:outline-none focus:border-indigo-500 focus:shadow-outline-lime transition ease-in-out duration-150 m-1">
                     <div>発送する</div>
-                </button>
+                </button> -->
             </div>
         </div>        
 
@@ -59,7 +59,7 @@
             <hr class="mb-6" />
             <div class="mb-3 text-sm">配送商品 （計{{products_count}}点）</div>
             <div class="mb-8">
-                <template v-for="(item, key) in products.data">
+                <template v-for="(item, key) in products">
                     <div  v-if="form.checks['id'+item.id]" class="mb-0  border-neutral-200 border-b">
                         <div class="flex border-neutral-200 items-center">
                             <img :src="item.image" class="w-12 h-12 inline-block object-contain"/>
@@ -77,11 +77,11 @@
             <div class="mb-2 text-sm">配送先情報</div>
             <div class="mb-8 border border-neutral-200 rounded-md px-4 py-2 flex items-center justify-between">
                 <div class="flex-1">
-                    <template v-if="profile.id">
+                    <!-- <template v-if="profile.id">
                         <p class="font-bold text-sm">{{ profile.first_name + profile.last_name }}</p>
                         <p class="text-sm">〒{{ profile.postal_code }}</p>
                         <p class="text-sm">{{ profile.address }}</p>
-                    </template>
+                    </template> -->
                 </div>
                 <div>
                     <Link :href="route('user.address')" type="button" @click="back_delivery()" :class="{ 'opacity-25': form.processing || (!hasCheck) }" :disabled="form.processing || (!hasCheck)" class="inline-block items-center px-5 py-1.5 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest bg-[#896858] hover:bg-[#60493d] active:bg-neutral-700 focus:outline-none focus:border-neutral-700 focus:shadow-outline-neutral transition ease-in-out duration-150 m-1">
@@ -143,14 +143,18 @@ export default {
     data() {
         return {
             hasCheck: false,
+            tab_id: 0,
             main_tab : [
-                {title:"未選択", route_url: 'products', is_active:true},
-                {title:"発送待ち", route_url: 'products/wait', is_active:false},
-                {title:"発送済み", route_url: 'products/delivered', is_active:false},
+                {title:"未選択", id: 0, is_active:true},
+                {title:"発送待ち", id: 1, is_active:false},
+                {title:"発送済み", id: 2, is_active:false},
             ],
             ready_delivery: 0,
             products_count: 0,
             products: [],
+            form: {
+                checks: []
+            },
             
         }
     },
@@ -162,29 +166,35 @@ export default {
     //         }
     //     }
     // },
-    async created() {
-        try {
-            const response = await axios.get(`/user/products`);
-            console.log("Products : " + response);
-            // this.products = response.data.products; // Adjust this line based on your actual API response structure
-            // console.log(response.data.products)
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
+    created() {
+        this.getProducts(this.tab_id);
     },
-    // setup(props) {
-    //     let checks = {};
-    //     let i;
-    //     for(i=0; i<props.products.data.length; i++) {
-    //         checks['id'+props.products.data[i]['id']] = false;            
-    //     }
+    mounted() {
+        let checks = {};
+        let i;
+        for(i=0; i < this.products_count; i++) {
+            checks['id'+ this.products[i]['id']] = false;            
+        }
         
-    //     const form = useForm( {
-    //         checks: checks,
-    //     })
-    //     return { form }
-    // },
+        const form = {
+            checks: checks,
+        }
+        return { form }
+    },
     methods: {
+        async getProducts(tab_id){
+            try {
+                const response = await axios.get(`/api/products/` + tab_id);
+                this.products = response.data.products; // Adjust this line based on your actual API response structure
+                this.products_count = this.products.length;
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        },
+        async change_tab (tab_id){
+            this.main_tab.forEach(tab => tab.is_active = tab.id === tab_id);
+            this.getProducts(tab_id);
+        },
         changeCheck() {
             // let i; let hasCheckLocal = false;
             // for(i=0; i<this.products.data.length; i++) {

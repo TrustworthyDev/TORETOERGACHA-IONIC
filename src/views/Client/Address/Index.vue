@@ -4,7 +4,7 @@
     <AdminLayout>
         <div class="pt-6">
             <h1 class="mb-8 text-xl text-center underline underline-offset-8 font-bold">&nbsp;&nbsp;個人情報登録&nbsp;&nbsp;</h1>
-            <div class="w-full text-sm md:px-12 px-6">  
+            <div class="w-full text-sm md:px-12 px-6">
                 <form @submit.prevent="submit()">
                     <div class="w-full mb-4">
                         <div class="w-1/2 p-1 md:pr-8 inline-block">
@@ -91,7 +91,16 @@ import axios from 'axios';
 import AdminLayout from '../../Layout/Admin.vue';
 import prefectures from '../../Store/prefectures';
 
-
+var form = {
+    first_name:'',
+    last_name:'',
+    first_name_gana:'',
+    last_name_gana:'',
+    postal_code:'',
+    prefecture: prefectures[0],
+    address:'',
+    phone:'',
+}
 
 export default {
     components: {AdminLayout},
@@ -103,33 +112,22 @@ export default {
     // },
     async created() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-        var response = await axios.get('/user/address');
-        console.log(response);
+        var response = await axios.get('/api/profile');
+        this.form = response.data;
     },
     data() {
         return {
             prefectures: prefectures,
             profiles: [],
+            form: form,
         }
     },
     methods: {
         submit () {
-            // this.form.post(route('user.address.post'), {
-            //     onFinish: () => {},
-            // });
+            
         },
     },
     setup(props) {
-        let profile = {
-            first_name:'',
-            last_name:'',
-            first_name_gana:'',
-            last_name_gana:'',
-            postal_code:'',
-            prefecture: prefectures[0],
-            address:'',
-            phone:'',
-        };
         // if (props.profiles.length) {
         //     let item = props.profiles[0]
         //     profile = {
@@ -145,8 +143,6 @@ export default {
         // }
 
         // const form = useForm( profile );
-        const form = profile;
-        return { form }
     },
     mounted() {
         
