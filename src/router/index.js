@@ -14,6 +14,7 @@ import ForgotPassword from '../views/auth/ForgotPassword.vue';
 import Profile from '../views/Client/Profile/index.vue';
 import Point from '../views/Client/Point/Index.vue';
 import Products from '../views/Client/Products/Index.vue';
+import Address from '../views/Client/Address/Index.vue';
 
 const routes = [
     {
@@ -55,6 +56,11 @@ const routes = [
         path: '/products',
         name: 'products',
         component: Products
+    },
+    {
+        path: '/address',
+        name: 'address',
+        component: Address
     },
     // {
     //     path: '/main/terms_conditions',

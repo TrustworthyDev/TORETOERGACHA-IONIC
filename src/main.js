@@ -32,8 +32,12 @@ import axios from 'axios';
 //   axios.defaults.headers.common['Authorization'] = `Bearer ${store.getters.user.token}`;
 // }
 
+if(localStorage.getItem('token')) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+}
+
 import { SERVER_URL } from './config';
-axios.defaults.baseURL = SERVER_URL + '/api/';
+axios.defaults.baseURL = SERVER_URL + '';
 
 const app = createApp(App)
   .use(IonicVue)

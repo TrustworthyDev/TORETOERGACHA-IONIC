@@ -73,7 +73,7 @@ export default {
         ...mapActions(["LogIn"]),
 
         submit() {
-            axios.post(`auth/login`, {
+            axios.post(`api/auth/login`, {
                 email: this.email,
                 password: this.password
             }).then(async res => {

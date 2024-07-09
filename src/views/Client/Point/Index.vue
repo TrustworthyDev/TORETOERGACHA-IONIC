@@ -54,7 +54,7 @@ export default {
     async created() {
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-            const response = await axios.get(`points`);
+            const response = await axios.get(`/api/points`);
             this.points = response.data.points; // Adjust this line based on your actual API response structure
             console.log(response.data.points)
         } catch (error) {
