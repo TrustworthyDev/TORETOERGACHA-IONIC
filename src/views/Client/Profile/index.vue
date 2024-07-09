@@ -1,4 +1,7 @@
 <script setup>
+    import { useStore } from 'vuex';
+    import { IonContent } from '@ionic/vue';
+
     import AdminLayout from '../../Layout/Admin.vue';
     import InviteFriend from './Partials/InviteFriend.vue';
     // import DeleteUserForm from './Partials/DeleteUserForm.vue';
@@ -12,6 +15,7 @@
         invitations: Object,
     });
     
+    document.title = "プロフィール";
     
 </script>
 

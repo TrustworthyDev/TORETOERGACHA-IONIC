@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import { useStore } from 'vuex';
 import InputError from '../../../Components/InputError.vue';
 import InputLabel from '../../../Components/InputLabel.vue';
 import TextInput from '../../../Components/TextInput.vue';
@@ -18,8 +19,10 @@ const form = {
     phone: user.phone || '',
 };
 
+const store = useStore();
+
 const submit = () => {
-   
+    store.dispatch('updateProfileInformation', form);
 }
 
 </script>
