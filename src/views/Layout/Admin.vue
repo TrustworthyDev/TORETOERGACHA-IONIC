@@ -17,23 +17,7 @@
                                 </button>
 
                                 <div class="flex-1 overflow-y-auto">
-                                    <ul class="text-neutral-700 font-semibold">
-                                        <div class="mt-1.5 pl-8 py-2 text-lg font-bold">マイページ</div>
-                                        <template v-for="item in main_menu">
-
-                                            <li v-if="item.type == 'link'"
-                                                class=" text-sm mx-8 my-2 border hover:bg-zinc-200">
-                                                <a class="block py-2 px-4 w-full text-start">
-                                                    {{ item.title }}
-                                                </a>
-                                            </li>
-
-                                        </template>
-                                        <li class=" text-sm mx-8 my-2 border hover:bg-zinc-200">
-                                            <button @click="logout" class="block py-2 px-4 w-full text-start">ログアウト
-                                            </button>
-                                        </li>
-                                    </ul>
+                                    <Sidebar />
                                 </div>
                             </div>
                         </TransitionChild>
@@ -163,11 +147,12 @@ import { TransitionRoot, TransitionChild, Dialog, DialogOverlay, Menu, MenuButto
 import { XMarkIcon, ChevronLeftIcon, Bars3Icon } from '@heroicons/vue/24/outline'
 import { useIonRouter, IonPage, IonContent, IonButton } from '@ionic/vue';
 import { mapActions } from "vuex";
+import Sidebar from '../Parts/Sidebar.vue';
 
 // import Toastify from "toastify-js";
 
 export default {
-    components: { TransitionRoot, TransitionChild, Dialog, DialogOverlay, XMarkIcon, ChevronLeftIcon, Bars3Icon, Menu, MenuButton, MenuItems, MenuItem, IonPage, IonContent, IonButton },
+    components: { TransitionRoot, TransitionChild, Dialog, DialogOverlay, XMarkIcon, ChevronLeftIcon, Bars3Icon, Menu, MenuButton, MenuItems, MenuItem, IonPage, IonContent, IonButton, Sidebar },
     props: {
         hide_footer: Boolean
     },
@@ -255,12 +240,10 @@ export default {
         return { ionRouter };
     },
     computed: {
-        isLoggedIn: function() { return this.$store.getters.isAuthenticated },
-        user: function() { return this.$store.getters.user }
+        isLoggedIn: function() { return this.$store.getters.isAuth },
+        user: function() { return JSON.parse(localStorage.getItem('user')) }
     },
     mounted() {
-        console.log(this.$store.getters.user);
-        console.log(this.$store.getters.token);
     }
 }
 </script>

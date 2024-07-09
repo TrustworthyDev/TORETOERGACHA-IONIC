@@ -1,16 +1,18 @@
 <script setup>
-import UserLayout from '../../Layout/User.vue';
-import InviteFriend from './Partials/InviteFriend.vue';
-// import DeleteUserForm from './Partials/DeleteUserForm.vue';
-import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
-import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
-// import { Head } from '@inertiajs/inertia-vue3';
+    import UserLayout from '../../Layout/User.vue';
+    import InviteFriend from './Partials/InviteFriend.vue';
+    // import DeleteUserForm from './Partials/DeleteUserForm.vue';
+    import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
+    import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
+    // import { Head } from '@inertiajs/inertia-vue3';
 
-defineProps({
-    mustVerifyEmail: Boolean,
-    status: Boolean,
-    invitations: Object,
-});
+    defineProps({
+        mustVerifyEmail: Boolean,
+        status: Boolean,
+        invitations: Object,
+    });
+    
+    
 </script>
 
 <template>

@@ -32,10 +32,10 @@
 
 <script>
 import { IonButton } from '@ionic/vue';
-import  Layout from './layout/User.vue';
+import  Layout from './Layout/User.vue';
 import { SERVER_URL } from '../config';
 import axios from 'axios';
-import GachaButtons from './parts/GachaButtons.vue';
+import GachaButtons from './Parts/GachaButtons.vue';
 
 export default {
     components: { Layout, GachaButtons },

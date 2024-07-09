@@ -5,22 +5,22 @@ export default [
     // },
     {
         title: "ポイント購入",
-        route_name : "user.point",
+        route_name : "point",
         type: "link",
     },
     {
         title: "獲得した商品一覧",
-        route_name : "user.products",
+        route_name : "products",
         type: "link",
     },
     {
         title: "個人情報登録",
-        route_name : "user.address",
+        route_name : "address",
         type: "link",
     },
     {
         title: "ポイント配布",
-        route_name: "user.coupon",
+        route_name: "coupon",
         type: "link"
     }
 ];

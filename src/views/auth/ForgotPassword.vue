@@ -26,11 +26,11 @@
 </template>
 
 <script>
-    import GuestLayout from '../layout/Guest.vue';
-    import InputLabel from '../components/InputLabel.vue'
-    import TextInput from '../components/TextInput.vue'
-    import InputError from '../components/InputError.vue'
-    import PrimaryButton from '../components/PrimaryButton.vue'
+    import GuestLayout from '../Layout/Guest.vue';
+    import InputLabel from '../Components/InputLabel.vue'
+    import TextInput from '../Components/TextInput.vue'
+    import InputError from '../Components/InputError.vue'
+    import PrimaryButton from '../Components/PrimaryButton.vue'
 
 
     export default {

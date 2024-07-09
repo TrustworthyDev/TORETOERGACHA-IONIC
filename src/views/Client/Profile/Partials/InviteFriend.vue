@@ -6,8 +6,7 @@
 //     invitations: Array,
 // });
 
-// const user = usePage().props.value.auth.user;
-
+const user = JSON.parse(localStorage.getItem('user'));
 // const confirmInvitation = (id) => {
 //     useForm({ id }).put(route('user.invitation.update'), {
 //         preserveScroll: true,
@@ -38,7 +37,7 @@
         </header>
 
         <div class="mt-2">
-            <span class="w-full px-2 leading-8">{{  }}</span>
+            <span class="w-full px-2 leading-8">{{ user.invite_code }}</span>
         </div>
     </section>
 </template>

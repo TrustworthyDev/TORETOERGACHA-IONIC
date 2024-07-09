@@ -9,13 +9,15 @@
             
         </template>
         <li class=" text-sm mx-8 my-2 border hover:bg-zinc-200 py-2 px-2 font-bold">
-            <a href="/logout" method="get" class="py-2 px-4 w-full text-start" as="button">ログアウト</a>
+            <a @click="logout" class="py-2 px-4 w-full text-start" as="button">ログアウト</a>
         </li>
     </ul>
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     import user_menu from '../Store/user-menu';
+
     export default {
         
         data(){
@@ -30,7 +32,7 @@
             this.main_menu = [
                 {
                     title: "ユーザー情報管理",
-                    route_name : "/profile/edit",
+                    route_name : "/profile",
                     type: "link",
                 },
                 ...this.main_menu
@@ -45,6 +47,12 @@
                     return 'text-neutral-700 hover:text-neutral-900 text-sm hover:underline';
                 }
                 
+            },
+            ...mapActions(["LogOut"]),        
+            async logout() {
+                await this.LogOut();
+                this.sidebarOpened = false;
+                window.location.href = 'login';
             }
         },  
     }

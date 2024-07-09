@@ -10,12 +10,13 @@ const props = defineProps({
     status: String,
 });
 
-// const user = usePage().props.value.auth.user;
-const user = {
-    name: 'ユーザー',
-    email: 'test@user.com',
-    phone: '11111111'
-};
+const user = JSON.parse(localStorage.getItem('user'));
+
+// const user = {
+//     name: user.name,
+//     email: user.email,
+//     phone: user.phone
+// };
 
 const form = {
     name: user.name,

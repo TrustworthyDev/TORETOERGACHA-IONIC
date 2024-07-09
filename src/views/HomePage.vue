@@ -12,9 +12,10 @@
 </template>
 
 <script>
-import AdminLayout from './layout/Admin.vue';
 import axios from 'axios';
-import GachaCard from './parts/GachaCard.vue';
+
+import AdminLayout from './Layout/Admin.vue';
+import GachaCard from './Parts/GachaCard.vue';
 import { SERVER_URL } from '../config';
 
 export default {

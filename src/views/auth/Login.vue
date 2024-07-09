@@ -77,7 +77,6 @@ export default {
                 email: this.email,
                 password: this.password
             }).then(async res => {
-
                 if (res.data.success) {
                     await this.LogIn(res.data.token);
                     window.location.href = '/';
@@ -89,7 +88,7 @@ export default {
                     alert(res.data.message);
                 }
             }).catch(err => {
-                this.errors = err.response.data;
+                this.errors = err;
             });
         },
 

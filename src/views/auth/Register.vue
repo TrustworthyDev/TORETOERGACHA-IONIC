@@ -97,7 +97,7 @@
 </template>
 <script>
 import axios from 'axios';
-import Layout from '../layout/Admin.vue';
+import Layout from '../Layout/Admin.vue';
 import { IonButton, IonCheckbox } from '@ionic/vue';
 import { SERVER_URL } from '../../config';
 import { ref } from 'vue';
