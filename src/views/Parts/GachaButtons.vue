@@ -1,5 +1,4 @@
 <template>
-    sdfsdf
     <div v-if="(gacha.count_rest>0 && gacha.productCount!=0)" class="w-[84%] md:max-w-[360px] mx-auto flex justify-center">
         <button  @click="clickgacha(10)" :class="{ 'opacity-50': processing }" :disabled="processing" class="cursor-pointer m-1 rounded-[5px] bg-[#896858] text-white text-sm text-center w-[48%]">
             <div class="m-2">
@@ -42,7 +41,7 @@ export default {
     }, 
     data () {
         return {
-            category_share: usePage().props.value.category_share,
+            // category_share: usePage().props.value.category_share,
             str_gacha10: "",
             str_gacha100: "",
             processing: false,
@@ -81,7 +80,7 @@ export default {
         }
 
         if(!this.url_edit) {
-            this.url_card = route('user.gacha', this.gacha.id) + this.category_share.cat_route_appendix;
+            // this.url_card = 'user.gacha?id=' + this.gacha.id + '&cat_id=' + this.category_share.cat_route_appendix;
         }
     }
 }

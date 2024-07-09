@@ -1,7 +1,6 @@
 <template>
-
     <Layout :hide_footer="true">
-        <div v-if="gacha" class="w-full">
+        <div v-if="gacha" class="w-full relative">
             <div class="w-full h-full overflow-y-auto">
                 <div class="w-full mx-auto bg-white md:py-6 py-0">
                     <div class="mx-auto relative w-full md:max-w-[430px]">
@@ -33,7 +32,7 @@
 
 <script>
 import { IonButton } from '@ionic/vue';
-import Layout from './Layout.vue';
+import  Layout from './layout/User.vue';
 import { SERVER_URL } from '../config';
 import axios from 'axios';
 import GachaButtons from './parts/GachaButtons.vue';

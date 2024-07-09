@@ -68,9 +68,10 @@ export default {
         clickCard() {
             if(this.gacha.count_rest>0) {
                 this.ionRouter.push({
-                    name: 'gacha_detail',
+                    name: 'detail',
                     params: {
-                        id: this.gacha.id
+                        id: this.gacha.id,
+                        cat_id: this.gacha.category_share
                     }
                 });
             }

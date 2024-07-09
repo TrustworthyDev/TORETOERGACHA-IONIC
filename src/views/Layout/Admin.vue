@@ -206,6 +206,7 @@ export default {
                     type: "link"
                 }
             ],
+            year: new Date().getFullYear(),
             // user: $store.user
         }
     },

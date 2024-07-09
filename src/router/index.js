@@ -1,11 +1,18 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router'
 import HomePage from '../views/HomePage.vue'
+
 import TermsConditions from '../views/main/TermsConditions.vue'
 import PrivacyPolicy from '../views/main/PrivacyPolicy.vue'
 import NotationCommercial from '../views/main/NotationCommercial.vue'
 import GachaDetail from '../views/GachaDetail.vue'
+
+// Authentication
 import Login from '../views/auth/Login.vue'
 import Register from '../views/auth/Register.vue'
+import ForgotPassword from '../views/auth/ForgotPassword.vue';
+
+import Profile from '../views/Client/Profile/index.vue';
+import Point from '../views/Client/Point/Index.vue';
 
 const routes = [
     {
@@ -28,23 +35,39 @@ const routes = [
         component: Register
     },
     {
-        path: '/main/terms_conditions',
-        name: 'main.terms_conditions',
-        component: TermsConditions
+        path: '/forgot-password',
+        name: 'forgot-password',
+        component: ForgotPassword
+    },
+
+    {
+        path: '/profile',
+        name: 'profile',
+        component: Profile
     },
     {
-        path: '/main/privacy_policy',
-        name: 'main.privacy_policy',
-        component: PrivacyPolicy
+        path: '/point',
+        name: 'point',
+        component: Point
     },
+    // {
+    //     path: '/main/terms_conditions',
+    //     name: 'main.terms_conditions',
+    //     component: TermsConditions
+    // },
+    // {
+    //     path: '/main/privacy_policy',
+    //     name: 'main.privacy_policy',
+    //     component: PrivacyPolicy
+    // },
+    // {
+    //     path: '/main/notation_commercial',
+    //     name: 'main.notation_commercial',
+    //     component: NotationCommercial
+    // },
     {
-        path: '/main/notation_commercial',
-        name: 'main.notation_commercial',
-        component: NotationCommercial
-    },
-    {
-        path: '/gacha_detail/:id',
-        name: 'gacha_detail',
+        path: '/detail/:id',
+        name: 'detail',
         component: GachaDetail,
     }
 ]

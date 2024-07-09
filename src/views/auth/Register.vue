@@ -14,7 +14,7 @@
                     <div class="mb-6">
                         <label for="phone" class="block text-md font-bold text-neutral-700 p-2">電話番号</label>
                         <input v-model="phone" id="phone" type="tel"
-                            class="w-full shadow-xs border border-neutral-300 rounded-md placeholder-neutral-300 px-4 py-3"
+                            class="w-full shadow-xs border border-neutral-300 rounded-md placeholder-neutral-300 px-4 py-3 bg-white font-black"
                             placeholder="半角数字のみで入力してください" />
                         <div v-if="errors.phone" v-for="error in errors.phone" class="text-red-500 text-sm mt-1">
                             {{ error }}
@@ -54,7 +54,7 @@
                     <div class="mb-8">
                         <label for="code" class="block text-md text-neutral-700 p-2">登録したメールに送信された4行の認証コードを入力してください。</label>
                         <input v-model="code" id="code" type="tel"
-                            class="w-full shadow-xs border border-neutral-300 rounded-md placeholder-neutral-300 px-4 py-3"
+                            class="w-full shadow-xs border border-neutral-300 rounded-md placeholder-neutral-300 px-4 py-3 bg-white"
                             placeholder="認証コードを入力してください" />
                         <InputError class="mt-2" :message="errors.code" />
                     </div>
@@ -71,7 +71,7 @@
                     <div class="mb-4">
                         <label for="email" class="block text-md font-bold text-neutral-700 p-2">メールアドレス</label>
                         <input v-model="email" id="email" type="email"
-                            class="w-full shadow-xs border border-neutral-300 rounded-md placeholder-neutral-300 px-4 py-3" />
+                            class="w-full shadow-xs border border-neutral-300 rounded-md placeholder-neutral-300 px-4 py-3 bg-white" />
                         <div v-if="errors.email" v-for="error in errors.email" class="text-red-500 text-sm mt-1">
                             {{ error }}
                         </div>
@@ -97,7 +97,7 @@
 </template>
 <script>
 import axios from 'axios';
-import Layout from '../Layout.vue';
+import Layout from '../layout/Admin.vue';
 import { IonButton, IonCheckbox } from '@ionic/vue';
 import { SERVER_URL } from '../../config';
 import { ref } from 'vue';

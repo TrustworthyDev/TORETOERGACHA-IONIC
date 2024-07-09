@@ -1,5 +1,5 @@
 <template>
-    <Layout>
+    <AdminLayout>
         <div class="px-4 mb-8 grid sm:grid-cols-2 grid-cols-1 gap-4">
             <template v-for="(gacha, key) in gachas">
                 <GachaCard v-if="gacha.count_rest" :gacha="gacha"/>
@@ -8,16 +8,17 @@
                 <GachaCard v-if="!gacha.count_rest" :gacha="gacha"/>
             </template>
         </div>
-    </Layout>
+    </AdminLayout>
 </template>
 
 <script>
-import Layout from './Layout.vue';
+import AdminLayout from './layout/Admin.vue';
 import axios from 'axios';
 import GachaCard from './parts/GachaCard.vue';
+import { SERVER_URL } from '../config';
 
 export default {
-    components: { Layout, GachaCard },
+    components: { AdminLayout, GachaCard },
     
     data() {
         return {
@@ -26,7 +27,7 @@ export default {
     },
     methods: {
         getGachas() {
-            axios.get(`http://127.0.0.1/api/gachas`).then(res => {
+            axios.get(`${SERVER_URL}/api/gachas`).then(res => {
                 if (res.data.success) {
                     this.gachas = res.data.gachas;
                 }
