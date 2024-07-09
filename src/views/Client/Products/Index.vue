@@ -6,8 +6,8 @@
         <div v-if="ready_delivery==0" style="min-height:400px;" class="px-4 md:px-8 w-full">  
             <div class="pt-3 pb-1 mx-4 px-4 mb-3 border-black">
                 <h1 class="mb-8 text-lg text-center font-bold underline underline-offset-8">&nbsp;&nbsp;&nbsp;獲得した商品一覧&nbsp;&nbsp;&nbsp;</h1>
-                <div class="w-full text-neutral-600 mb-3">
-                    <a v-for="(item, key) in main_tab" class="inline-block md:px-8 px-4 py-1.5" :class="{'bg-[#896858] text-white': item.is_active}" @click="change_tab(item.id)">
+                <div class="w-full text-neutral-600 mb-3 flex justify-center">
+                    <a v-for="(item, key) in main_tab" class="inline-block md:px-8 px-4 py-1.5 cursor-pointer hover:bg-[#e3e3e3]" :class="{'bg-[#896858] text-white': item.is_active}" @click="change_tab(item.id)">
                         {{item.title}}
                     </a>
                 </div>
@@ -15,7 +15,7 @@
             <div class="grid md:grid-cols-2 gap-1">
                 <div v-for="(item, key) in products" class="mt-1 py-2 px-3 hover:bg-sky-50 focus:bg-sky-50">
                     <div class="flex border-neutral-200 items-start">
-                        <input :id="'checkbox' + item.id" v-model="form.checks['id'+item.id]" type="checkbox" @change="changeCheck()" class="cursor-pointer border-neutral-300 text-blue-600 shadow-sm focus:ring-0 m-1 background:white"/>
+                        <ion-checkbox :id="'checkbox' + item.id" v-model="form.checks['id'+item.id]" type="checkbox" @change="changeCheck()" class="cursor-pointer border-neutral-300 text-blue-600 shadow-sm focus:ring-0 m-1 bg-white "></ion-checkbox>
                             
                         <label :for="'checkbox' + item.id" class="cursor-pointer flex items-start justify-center inline-block text-sm py-1">
                             <img :src="item.image" class="w-32 h-32 inline-block object-contain"/>
@@ -127,12 +127,12 @@
 </template>
 
 <script>
-// import { Head, useForm, Link } from '@inertiajs/inertia-vue3';
+import { IonCheckbox } from '@ionic/vue';
 import AdminLayout from '../../Layout/Admin.vue';
 import axios from 'axios';
 
 export default {
-    components: {AdminLayout},
+    components: {IonCheckbox, AdminLayout},
     // props: {
     //     errors: Object,
     //     gacha: Object,
@@ -145,9 +145,9 @@ export default {
             hasCheck: false,
             tab_id: 0,
             main_tab : [
-                {title:"未選択", id: 0, is_active:true},
-                {title:"発送待ち", id: 1, is_active:false},
-                {title:"発送済み", id: 2, is_active:false},
+                {title:"未選択", id: 1, is_active:true},
+                {title:"発送待ち", id: 3, is_active:false},
+                {title:"発送済み", id: 4, is_active:false},
             ],
             ready_delivery: 0,
             products_count: 0,
