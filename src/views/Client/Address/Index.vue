@@ -1,6 +1,4 @@
 <template>
-    <Head title="個人情報登録" />
-
     <AdminLayout>
         <div class="pt-6">
             <h1 class="mb-8 text-xl text-center underline underline-offset-8 font-bold">&nbsp;&nbsp;個人情報登録&nbsp;&nbsp;</h1>
@@ -10,16 +8,16 @@
                         <div class="w-1/2 p-1 md:pr-8 inline-block">
                             <label for="first_name" class="mb-1 pb-2 px-5 text-lg font-bold block">姓</label>
                             <input v-model="form.first_name" id="first_name" type="text"  class="h-12 w-full md:px-5 px-3 py-2 bg-white border border-neutral-300 focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 placeholder-neutral-300" placeholder="動波"/>
-                            <!-- <div v-if="errors.first_name" class="text-red-500 text-sm ">
+                            <div v-if="errors && errors.first_name" class="text-red-500 text-sm ">
                                 {{ errors.first_name }}
-                            </div> -->
+                            </div>
                         </div>
                         <div class="w-1/2 p-1 inline-block">
                             <label for="last_name" class="mb-1 pb-2 px-5 text-lg font-bold block">名</label>
                             <input v-model="form.last_name" id="last_name" type="text"  class="h-12 w-full md:px-5 px-3 py-2 bg-white border border-neutral-300 focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 placeholder-neutral-300" placeholder="太郎"/>
-                            <!-- <div v-if="errors.last_name" class="text-red-500 text-sm ">
+                            <div v-if="errors && errors.last_name" class="text-red-500 text-sm ">
                                 {{ errors.last_name }}
-                            </div> -->
+                            </div>
                         </div>
                     </div>
 
@@ -87,9 +85,11 @@
 
 <script>
 import axios from 'axios';
+import { mapActions, mapState } from 'vuex';
 
 import AdminLayout from '../../Layout/Admin.vue';
 import prefectures from '../../Store/prefectures';
+
 
 var form = {
     first_name:'',
@@ -103,49 +103,40 @@ var form = {
 }
 
 export default {
-    components: {AdminLayout},
-    // props: {
-    //     errors: Object,
-    //     gacha: Object,
-    //     category_share:Object,
-    //     profiles: Object,
-    // },
-    async created() {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-        var response = await axios.get('/api/profile');
-        this.form = response.data;
+    components: {
+        AdminLayout
+    },
+    created() {
+        document.title = "個人情報登録 - とれとれガチャステーション";
+        this.getAddress();
     },
     data() {
         return {
             prefectures: prefectures,
-            profiles: [],
             form: form,
         }
     },
+    computed: {
+        ...mapState(["errors", "profile"]),
+    },
     methods: {
+        ...mapActions(["getProfile", "saveProfile"]),
+
+        async getAddress(){
+            await this.getProfile();
+        },
+
         submit () {
-            
+            try{
+                this.saveProfile(this.form);
+            }catch(error){
+                console.log(error);
+            }
         },
     },
-    setup(props) {
-        // if (props.profiles.length) {
-        //     let item = props.profiles[0]
-        //     profile = {
-        //         first_name: item.first_name,
-        //         last_name: item.last_name,
-        //         first_name_gana: item.first_name_gana,
-        //         last_name_gana: item.last_name_gana,
-        //         postal_code: item.postal_code,
-        //         prefecture: item.prefecture,
-        //         address: item.address,
-        //         phone: item.phone,
-        //     };
-        // }
-
-        // const form = useForm( profile );
-    },
     mounted() {
-        
+        // console.log(this.errors);
+        this.form = this.$store.getters.getProfile;
     },
 }
 </script>

@@ -143,12 +143,12 @@ export default {
     data() {
         return {
             hasCheck: false,
-            tab_id: 0,
             main_tab : [
                 {title:"未選択", id: 1, is_active:true},
                 {title:"発送待ち", id: 3, is_active:false},
                 {title:"発送済み", id: 4, is_active:false},
             ],
+            tab_id: 1,
             ready_delivery: 0,
             products_count: 0,
             products: [],

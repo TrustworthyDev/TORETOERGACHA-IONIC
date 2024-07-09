@@ -1,5 +1,5 @@
 <script setup>
-    import UserLayout from '../../Layout/User.vue';
+    import AdminLayout from '../../Layout/Admin.vue';
     import InviteFriend from './Partials/InviteFriend.vue';
     // import DeleteUserForm from './Partials/DeleteUserForm.vue';
     import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
@@ -17,7 +17,7 @@
 
 <template>
     <ion-content>
-        <UserLayout>
+        <AdminLayout>
             <div class="w-full flex justify-center pt-4 font-sans overflow-y-auto">
                 <div class="md:w-[760px] w-full ">
                     <h2 class="font-semibold text-lg leading-tight px-4">
@@ -47,6 +47,6 @@
                 </div>
             </div>
             
-        </UserLayout>
+        </AdminLayout>
     </ion-content>
 </template>
