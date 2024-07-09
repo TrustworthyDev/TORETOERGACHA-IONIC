@@ -8,16 +8,16 @@
                         <div class="w-1/2 p-1 md:pr-8 inline-block">
                             <label for="first_name" class="mb-1 pb-2 px-5 text-lg font-bold block">姓</label>
                             <input v-model="form.first_name" id="first_name" type="text"  class="h-12 w-full md:px-5 px-3 py-2 bg-white border border-neutral-300 focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 placeholder-neutral-300" placeholder="動波"/>
-                            <div v-if="errors && errors.first_name" class="text-red-500 text-sm ">
-                                {{ errors.first_name }}
-                            </div>
+                            <!-- <div v-if="errors && errors.first_name" class="text-red-500 text-sm ">
+                                {{ errors.first_name[0] }}
+                            </div> -->
                         </div>
                         <div class="w-1/2 p-1 inline-block">
                             <label for="last_name" class="mb-1 pb-2 px-5 text-lg font-bold block">名</label>
                             <input v-model="form.last_name" id="last_name" type="text"  class="h-12 w-full md:px-5 px-3 py-2 bg-white border border-neutral-300 focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 placeholder-neutral-300" placeholder="太郎"/>
-                            <div v-if="errors && errors.last_name" class="text-red-500 text-sm ">
-                                {{ errors.last_name }}
-                            </div>
+                            <!-- <div v-if="errors && errors.last_name" class="text-red-500 text-sm ">
+                                {{ errors.last_name[0] }}
+                            </div> -->
                         </div>
                     </div>
 
@@ -26,7 +26,7 @@
                             <label for="first_name_gana" class="mb-1 pb-2 px-5 text-lg font-bold block">姓 (カナ)</label>
                             <input v-model="form.first_name_gana" id="first_name_gana" type="text"  class="h-12 w-full md:px-5 px-3 py-2 bg-white border border-neutral-300 focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 placeholder-neutral-300" placeholder="ドウバ"/>
                             <!-- <div v-if="errors.first_name_gana" class="text-red-500 text-sm ">
-                                {{ errors.first_name_gana }}
+                                {{ errors.first_name_gana[0] }}
                             </div> -->
                         </div>
                         <div class="w-1/2 p-1 inline-block">
@@ -86,9 +86,12 @@
 <script>
 import axios from 'axios';
 import { mapActions, mapState } from 'vuex';
+import { toast } from 'vue3-toastify';
+import "vue3-toastify/dist/index.css";
 
 import AdminLayout from '../../Layout/Admin.vue';
 import prefectures from '../../Store/prefectures';
+
 
 
 var form = {
@@ -113,7 +116,11 @@ export default {
     data() {
         return {
             prefectures: prefectures,
+            errors: {},
             form: form,
+            isDialogMessage: false,
+            dialogTitle: '',
+            dialogMessage: '',
         }
     },
     computed: {
@@ -126,16 +133,22 @@ export default {
             await this.getProfile();
         },
 
-        submit () {
+        async submit () {
             try{
-                this.saveProfile(this.form);
+                var message = await this.saveProfile(this.form);
+                toast('<strong>通知</strong> \n' + message, {
+                    "theme": "auto",
+                    "type": "success",
+                    "autoClose": 2000,
+                    "dangerouslyHTMLString": true
+                })
             }catch(error){
                 console.log(error);
             }
         },
     },
     mounted() {
-        // console.log(this.errors);
+        this.errors = this.$store.getters.getErrors;
         this.form = this.$store.getters.getProfile;
     },
 }

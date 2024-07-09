@@ -10,58 +10,16 @@ const props = defineProps({
     status: String,
 });
 
-const user = JSON.parse(localStorage.getItem('user'));
-
-// const user = {
-//     name: user.name,
-//     email: user.email,
-//     phone: user.phone
-// };
+const user = JSON.parse(localStorage.getItem('user')) || {};
 
 const form = {
-    name: user.name,
-    email: user.email,
-    phone: user.phone
+    name: user.name || '',
+    email: user.email || '',
+    phone: user.phone || '',
 };
 
-const verify_form = ref({
-    step_integer: 0,
-    phone: "",
-    code: "",
-});
-
 const submit = () => {
-    // verify_form.phone = form.phone;
-    // if (verify_form.step_integer == 0) {
-    //     verify_form.post(route('register.phone.send'), {
-    //         onFinish: () => {
-    //             let result = usePage().props.value.flash;
-
-    //             if (result.data) {
-    //                 if (result.data.status == 1) {
-    //                     verify_form.step_integer = 1;
-    //                 }
-    //             }
-
-    //         },
-    //     });
-    // } else if (verify_form.step_integer == 1) {
-    //     verify_form.post(route('register.phone.verify'), {
-    //         onFinish: () => {
-    //             let result = usePage().props.value.flash;
-    //             if (result.data) {
-    //                 if (result.data.status == 1) {
-    //                     verify_form.step_integer = 2;
-                        
-    //                 }
-    //                 else {
-    //                     verify_form.code = 0;
-    //                     verify_form.step_integer = 0;
-    //                 }
-    //             }
-    //         },
-    //     });
-    // }
+   
 }
 
 </script>

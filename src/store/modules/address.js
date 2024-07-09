@@ -25,7 +25,9 @@ const actions = {
         try {
             const response = await axios.post('/api/profile', profile);
             commit('setProfile', response.data.profile);
-            commit('setErrors', null);
+            commit('setErrors', {});
+            return response.data.message;
+
           } catch (error) {
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);

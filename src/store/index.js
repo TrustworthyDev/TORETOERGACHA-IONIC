@@ -10,7 +10,9 @@ import address from './modules/address';
 export default new Vuex.Store({
     modules: {
         auth,
-        address
+        address,
+        profile,
+        point
     },
     plugins: [createPersistedState()]
 });
