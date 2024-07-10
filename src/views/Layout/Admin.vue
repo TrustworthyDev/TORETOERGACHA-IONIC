@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-        <ion-content>
+        <ion-content style="--backgound-color: white">
             <div class="flex min-h-screen text-neutral-700 text-base underline-offset-2 font-medium">
                 <TransitionRoot :show="sidebarOpened" class="h-full">
                     <Dialog :open="sidebarOpened" @close="sidebarOpened = false" class="fixed h-full inset-0 z-40 ">
@@ -67,7 +67,7 @@
                             <div class="md:w-[760px] w-full flex py-1 mx-auto justify-center items-center gap-1">
                                 <div class="flex items-center flex-1">
                                     <RouterLink :to="{name: 'home'}" class="flex">
-                                        <img class="mx-auto max-h-12 max-w-full" alt="とれとれガチャステーション"
+                                        <img class="mx-auto max-h-14 max-w-full mx-3 my-2" alt="とれとれガチャステーション"
                                             src="/images/logo.png" />
                                     </RouterLink>
                                 </div>
@@ -83,9 +83,6 @@
                                     </div>
                                 </a>
 
-                                <!--   <div class="min-w-[60px] h-[26px] text-right bg-blue-500 hover:bg-cyan-700 text-red-50 py-1 pr-5 pl-5 rounded-full text-xs m-1 mb-0"> {{dp_value}} <span class="text-xs"> tp</span>
-                                    </div>
-                                    -->
                                 <div class="relative flex-shrink-0 flex items-center">
                                     <img v-if="isLoggedIn" @click="sidebarOpened = true"
                                         class="w-8 h-8 inline cursor-pointer" src="/images/dopakun.png" />
@@ -97,15 +94,12 @@
 
                             </div>
                         </div>
-                        <!-- <Branch/>
-                        <Category v-if="!hide_cat_bar"/> -->
                     </div>
 
                     <main class="w-full flex-1 relative">
                         <div class="absolute w-full h-full overflow-y-auto">
                             <div class="min-h-full flex flex-col">
-                                <div
-                                    :class="{ 'md:w-[760px]': !show_result_bg, 'flex-1 w-full mx-auto footer_padding bg-no-repeat bg-cover': true }">
+                                <div :class="{ 'md:w-[760px]': !show_result_bg, 'flex-1 w-full mx-auto footer_padding bg-no-repeat bg-cover': true }">
                                     <div :style="[show_result_bg ? { backgroundImage: result_bg_image } : {}]"
                                         class="bg-no-repeat bg-cover bg-center">
                                         <slot />
@@ -113,8 +107,7 @@
                                 </div>
                                 <div v-if="!hide_footer" class="w-full">
                                     <div class="md:w-[760px] w-full mx-auto  pt-5 md:px-2 px-4 items-start">
-                                        <div
-                                            class="md:w-[760px] w-full text-center mx-auto pb-2 md:px-2 px-4 flex flex-wrap md:gap-20 md:justify-center">
+                                        <div class="md:w-[760px] w-full text-center mx-auto pb-2 md:px-2 px-4 flex flex-wrap md:gap-20 md:justify-center">
                                             <a :href="route('main.terms_conditions')"
                                                 class="text-inherit-400 text-center md:w-auto w-[100%]">利用規約</a>
                                             <a :href="route('main.privacy_policy')"

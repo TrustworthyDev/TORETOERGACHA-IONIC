@@ -4,7 +4,7 @@
             <h1 class="mb-10 font-bold text-center text-lg underline underline-offset-8 mb-4">&nbsp;&nbsp;&nbsp;ポイントを購入する&nbsp;&nbsp;&nbsp;</h1>
             <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 md:px-9 px-3 justify-center gap-4 pb-8">
                 <template v-for="(point, key) in points">
-                    <a href="/" class="flex flex-col justify-between cursor-pointer border-2 border-solid border-gray-200 bg-white text-center relative rounded-lg overflow-hidden">
+                    <a :href="purchase_url + '/' + point.id" class="flex flex-col justify-between cursor-pointer border-2 border-solid border-gray-2000 bg-white text-center relative rounded-lg overflow-hidden">
                         <div class="text-center flex justify-center w-full">
                             <img class="inline-block object-cover w-full -my-[10%]" :src="point.image"/> 
                         </div>
@@ -35,21 +35,21 @@ import { SERVER_URL } from '../../../config';
 
 export default {
     components: {AdminLayout},
+    setup() {
+        document.title = 'ポイントを購入する - とれとれガチャステーション';
+    },
     data() {
         return {
             is_busy: false,
             is_admin: false,
-            purchase_uri: 'user.point.purchase',
+            purchase_url: 'point/purchase',
             points: []
         }
     },
-
     async created() {
         try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
             const response = await axios.get(`/api/points`);
             this.points = response.data.points; // Adjust this line based on your actual API response structure
-            console.log(response.data.points)
         } catch (error) {
             console.error('Error fetching points:', error);
         }

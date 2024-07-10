@@ -87,7 +87,7 @@
 import axios from 'axios';
 import { mapActions, mapState } from 'vuex';
 import { toast } from 'vue3-toastify';
-import "vue3-toastify/dist/index.css";
+
 
 import AdminLayout from '../../Layout/Admin.vue';
 import prefectures from '../../Store/prefectures';

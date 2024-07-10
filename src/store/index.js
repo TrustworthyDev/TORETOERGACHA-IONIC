@@ -5,6 +5,7 @@ import auth from './modules/auth';
 import address from './modules/address';
 import profile from './modules/profile';
 import point from './modules/point';
+import product from './modules/product';
 
 // Load Vuex
 // Vue.use(Vuex);
@@ -14,7 +15,8 @@ export default new Vuex.Store({
         auth,
         address,
         profile,
-        point
+        point,
+        product
     },
     plugins: [createPersistedState()]
 });

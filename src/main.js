@@ -22,26 +22,19 @@ import '@ionic/vue/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import './theme/app.css';
 
 import store from './store/index';
 import axios from 'axios';
 
-// axios.defaults.withCredentials = true
-
-// if (store.getters.user) {
-//   axios.defaults.headers.common['Authorization'] = `Bearer ${store.getters.user.token}`;
-// }
+import "vue3-toastify/dist/index.css";
 
 if(localStorage.getItem('token')) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-
-  const token = document.head.querySelector('meta[name="csrf-token"]');
-  axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 }
 
 import { SERVER_URL } from './config';
 axios.defaults.baseURL = SERVER_URL + '';
-
 const app = createApp(App)
   .use(IonicVue)
   .use(router)

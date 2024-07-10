@@ -12,8 +12,12 @@ import Register from '../views/auth/Register.vue'
 import ForgotPassword from '../views/auth/ForgotPassword.vue';
 
 import Profile from '../views/Client/Profile/index.vue';
+
 import Point from '../views/Client/Point/Index.vue';
+import PointPurchase from '../views/Client/Point/Purchase.vue';
+
 import Products from '../views/Client/Products/Index.vue';
+
 import Address from '../views/Client/Address/Index.vue';
 import Coupon from '../views/Client/Coupon/Index.vue';
 
@@ -52,6 +56,11 @@ const routes = [
         path: '/point',
         name: 'point',
         component: Point
+    },
+    {
+        path: '/point/purchase/:id',
+        name: 'point-purchase',
+        component: PointPurchase
     },
     {
         path: '/products',

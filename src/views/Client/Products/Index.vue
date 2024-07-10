@@ -1,25 +1,36 @@
 <template>
-    <!-- <Head title="獲得した商品一覧" /> -->
-
     <AdminLayout>
         
         <div v-if="ready_delivery==0" style="min-height:400px;" class="px-4 md:px-8 w-full">  
             <div class="pt-3 pb-1 mx-4 px-4 mb-3 border-black">
                 <h1 class="mb-8 text-lg text-center font-bold underline underline-offset-8">&nbsp;&nbsp;&nbsp;獲得した商品一覧&nbsp;&nbsp;&nbsp;</h1>
                 <div class="w-full text-neutral-600 mb-3 flex justify-center">
-                    <a v-for="(item, key) in main_tab" class="inline-block md:px-8 px-4 py-1.5 cursor-pointer hover:bg-[#e3e3e3]" :class="{'bg-[#896858] text-white': item.is_active}" @click="change_tab(item.id)">
+                    <a 
+                        v-for="(item, key) in tab" 
+                        class="inline-block md:px-8 px-4 py-1.5 cursor-pointer hover:bg-[#e3e3e3]" 
+                        :class="{'bg-[#896858] text-white': item.is_active}" 
+                        @click="change_tab(item.id)"
+                    >
                         {{item.title}}
                     </a>
                 </div>
             </div>
             <div class="grid md:grid-cols-2 gap-1">
-                <div v-for="(item, key) in products" class="mt-1 py-2 px-3 hover:bg-sky-50 focus:bg-sky-50">
-                    <div class="flex border-neutral-200 items-start">
-                        <ion-checkbox :id="'checkbox' + item.id" v-model="form.checks['id'+item.id]" type="checkbox" @change="changeCheck()" class="cursor-pointer border-neutral-300 text-blue-600 shadow-sm focus:ring-0 m-1 bg-white "></ion-checkbox>
+                <div 
+                    v-for="(item, key) in products"
+                    class="mt-1 py-2 px-3 hover:bg-sky-50 focus:bg-sky-50 border-[1px]"
+                >
+                    <div class="flex border-neutral-200 items-start select-none">
+                        <input
+                            type="checkbox"
+                            :id="'checkbox' + item.id" 
+                            v-model="checks['id'+item.id]" 
+                            class="custom-checkbox cursor-pointer border-neutral-300 text-blue-600 shadow-sm focus:ring-0 m-1 bg-white"
+                            @change="changeCheck(item.id)"
+                        />
                             
                         <label :for="'checkbox' + item.id" class="cursor-pointer flex items-start justify-center inline-block text-sm py-1">
                             <img :src="item.image" class="w-32 h-32 inline-block object-contain"/>
-                        
                             <div class="ml-2 flex flex-col self-stretch justify-around py-3">
                                 <div class="text-sm py-1 px-3">{{item.name}}</div>
                                 <div class="text-sm py-1 px-3">{{item.rare}}</div>
@@ -28,10 +39,8 @@
                                     <span>{{item.point}}&nbsp;PT</span>
                                 </div>
                             </div>
-                            
                         </label>
                     </div>
-                
                 </div>
             </div>
 
@@ -45,12 +54,12 @@
             </div>
             
             <div class="mb-8 pb-8 text-center text-neutral-50">
-                <!-- <button type="button" @click="submit('point')" :class="{ 'opacity-25': form.processing || (!hasCheck) }" :disabled="form.processing || (!hasCheck)" class="w-40 inline-block items-center px-4 py-2 bg-[#896858] hover:bg-[#60493d] font-semibold text-sm text-white uppercase tracking-widest active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:shadow-outline-blue transition ease-in-out duration-150 m-1">
+                <button type="button" @click="submit('point')" :class="{ 'opacity-25': processing || (!hasCheck) }" :disabled="processing || (!hasCheck)" class="w-40 inline-block items-center px-4 py-2 bg-[#896858] hover:bg-[#60493d] font-semibold text-sm text-white uppercase tracking-widest active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:shadow-outline-blue transition ease-in-out duration-150 m-1">
                     <div>ポイントに換える</div>
                 </button>
-                <button type="button" @click="submit('delivery')" :class="{ 'opacity-25': form.processing || (!hasCheck) }" :disabled="form.processing || (!hasCheck)" class="w-40 inline-block items-center px-4 py-2 hover:bg-[#896858] bg-[#60493d] font-semibold text-sm text-white uppercase tracking-widest active:bg-indigo-500 focus:outline-none focus:border-indigo-500 focus:shadow-outline-lime transition ease-in-out duration-150 m-1">
+                <button type="button" @click="submit('delivery')" :class="{ 'opacity-25': processing || (!hasCheck) }" :disabled="processing || (!hasCheck)" class="w-40 inline-block items-center px-4 py-2 hover:bg-[#896858] bg-[#60493d] font-semibold text-sm text-white uppercase tracking-widest active:bg-indigo-500 focus:outline-none focus:border-indigo-500 focus:shadow-outline-lime transition ease-in-out duration-150 m-1">
                     <div>発送する</div>
-                </button> -->
+                </button>
             </div>
         </div>        
 
@@ -84,9 +93,9 @@
                     </template> -->
                 </div>
                 <div>
-                    <Link :href="route('user.address')" type="button" @click="back_delivery()" :class="{ 'opacity-25': form.processing || (!hasCheck) }" :disabled="form.processing || (!hasCheck)" class="inline-block items-center px-5 py-1.5 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest bg-[#896858] hover:bg-[#60493d] active:bg-neutral-700 focus:outline-none focus:border-neutral-700 focus:shadow-outline-neutral transition ease-in-out duration-150 m-1">
+                    <a :href="route('user.address')" type="button" @click="back_delivery()" :class="{ 'opacity-25': form.processing || (!hasCheck) }" :disabled="form.processing || (!hasCheck)" class="inline-block items-center px-5 py-1.5 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest bg-[#896858] hover:bg-[#60493d] active:bg-neutral-700 focus:outline-none focus:border-neutral-700 focus:shadow-outline-neutral transition ease-in-out duration-150 m-1">
                         編集
-                    </Link>
+                    </a>
                 </div>
             </div>
             
@@ -121,95 +130,89 @@
                 
             </div>
         </div>
-
-        
     </AdminLayout>
 </template>
 
+<style scoped>
+.custom-checkbox {
+    background-color: white !important;
+}
+
+::v-deep input[type="checkbox"].custom-checkbox {
+    background-color: white !important;
+}
+</style>
+
 <script>
 import { IonCheckbox } from '@ionic/vue';
+import { mapState, mapActions } from 'vuex';
+
 import AdminLayout from '../../Layout/Admin.vue';
-import axios from 'axios';
+import { mapGetters } from 'vuex/dist/vuex.cjs.js';
 
 export default {
-    components: {IonCheckbox, AdminLayout},
-    // props: {
-    //     errors: Object,
-    //     gacha: Object,
-    //     category_share:Object,
-    //     products: Object,
-    //     profile: Object,
-    // },
+    components: {
+        IonCheckbox, AdminLayout
+    },
     data() {
         return {
             hasCheck: false,
-            main_tab : [
+            tab : [
                 {title:"未選択", id: 1, is_active:true},
                 {title:"発送待ち", id: 3, is_active:false},
                 {title:"発送済み", id: 4, is_active:false},
             ],
             tab_id: 1,
             ready_delivery: 0,
-            products_count: 0,
-            products: [],
-            form: {
-                checks: []
-            },
-            
+            checks: [],
+            processing: false
         }
     },
-    // watch : {
-    //     flash: function(newVal, oldVal) {
-    //         if (newVal.data) {
-    //             if (newVal.data.delivery_result && newVal.data.delivery_result == 'fail') this.ready_delivery = 1;
-    //             if (newVal.data.delivery_result && newVal.data.delivery_result == 'success') this.ready_delivery = 2;
-    //         }
-    //     }
-    // },
+    setup() {
+        document.title = '獲得した商品一覧 - とれとれガチャステーション';
+    },
     created() {
         this.getProducts(this.tab_id);
     },
+    computed: {
+        ...mapState(['products', 'products_count']),
+        ...mapGetters(['products', 'products_count'])
+    },
     mounted() {
-        let checks = {};
-        let i;
-        for(i=0; i < this.products_count; i++) {
-            checks['id'+ this.products[i]['id']] = false;            
+        let check = {};
+        for(let i = 0; i < this.products_count; i++) {
+            check['id'+ this.products[i]['id']] = false;            
         }
         
         const form = {
-            checks: checks,
+            checks: check
         }
         return { form }
     },
     methods: {
-        async getProducts(tab_id){
-            try {
-                const response = await axios.get(`/api/products/` + tab_id);
-                this.products = response.data.products; // Adjust this line based on your actual API response structure
-                this.products_count = this.products.length;
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
-        },
+        ...mapActions(['getProducts']),
+
         async change_tab (tab_id){
-            this.main_tab.forEach(tab => tab.is_active = tab.id === tab_id);
+            this.tab.forEach(tab => tab.is_active = tab.id === tab_id);
             this.getProducts(tab_id);
         },
+
         changeCheck() {
-            // let i; let hasCheckLocal = false;
-            // for(i=0; i<this.products.data.length; i++) {
-            //     if (this.form.checks['id'+this.products.data[i]['id']] ) {
-            //         hasCheckLocal = true;
-            //         break;
-            //     }
-            // }
-            // this.hasCheck = hasCheckLocal;
+            let hasCheckLocal = false;
+            for(let i=0; i< this.products.length; i++) {
+                if (this.checks['id'+this.products[i]['id']] ) {
+                    hasCheckLocal = true;
+                    break;
+                }
+            }
+            this.hasCheck = hasCheckLocal;
         },
+       
         submit(submit_type) {
             // let i; let products_count = 0; var point = 0;
-            // for(i=0; i<this.products.data.length; i++) {
-            //     if (this.form.checks['id'+this.products.data[i]['id']]) {
-            //         products_count++; point = parseInt(point) + parseInt(this.products.data[i]['point']);
+            // for(i=0; i<this.products.length; i++) {
+            //     if (this.form.checks['id'+this.products[i]['id']]) {
+            //         products_count++; point = parseInt(point) + parseInt(this.products[i]['point']);
             //     }
             // }
 
@@ -254,9 +257,15 @@ export default {
             //     alert('入力エラー、配送先情報を入力してください。')
             // }
             
-        },
-
-        
+        },        
     },
+    // watch : {
+    //     flash: function(newVal, oldVal) {
+    //         if (newVal.data) {
+    //             if (newVal.data.delivery_result && newVal.data.delivery_result == 'fail') this.ready_delivery = 1;
+    //             if (newVal.data.delivery_result && newVal.data.delivery_result == 'success') this.ready_delivery = 2;
+    //         }
+    //     }
+    // },
 }
 </script>
