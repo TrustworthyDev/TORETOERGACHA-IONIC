@@ -18,13 +18,14 @@
             <div class="grid md:grid-cols-2 gap-1">
                 <div 
                     v-for="(item, key) in products"
-                    class="mt-1 py-2 px-3 hover:bg-sky-50 focus:bg-sky-50 border-[1px]"
+                    class="mt-1 py-2 px-3 hover:border-[1px] hover:border-[#444444] border-[1px] border-[#ffffff] focus:bg-sky-50"
                 >
                     <div class="flex border-neutral-200 items-start select-none">
                         <input
+                            v-if="tab_id==tab[0].id"
                             type="checkbox"
                             :id="'checkbox' + item.id" 
-                            v-model="checks['id'+item.id]" 
+                            v-model="checks['id'+item.id]"
                             class="custom-checkbox cursor-pointer border-neutral-300 text-blue-600 shadow-sm focus:ring-0 m-1 bg-white"
                             @change="changeCheck(item.id)"
                         />
@@ -44,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="pb-6 pt-6 text-center text-md text-black">
+            <div v-if="tab_id==tab[0].id" class="pb-6 pt-6 text-center text-md text-black">
                 <template v-if="hasCheck">
                     選択した商品を...
                 </template>
@@ -53,11 +54,23 @@
                 </template>
             </div>
             
-            <div class="mb-8 pb-8 text-center text-neutral-50">
-                <button type="button" @click="submit('point')" :class="{ 'opacity-25': processing || (!hasCheck) }" :disabled="processing || (!hasCheck)" class="w-40 inline-block items-center px-4 py-2 bg-[#896858] hover:bg-[#60493d] font-semibold text-sm text-white uppercase tracking-widest active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:shadow-outline-blue transition ease-in-out duration-150 m-1">
+            <div  v-if="tab_id==tab[0].id" class="mb-8 pb-8 text-center text-neutral-50">
+                <button 
+                    type="button" 
+                    @click="exchange()" 
+                    :class="{ 'opacity-25': processing || (!hasCheck) }" 
+                    :disabled="processing || (!hasCheck)" 
+                    class="w-40 inline-block items-center px-4 py-2 bg-[#896858] hover:bg-[#60493d] font-semibold text-sm text-white uppercase tracking-widest active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:shadow-outline-blue transition ease-in-out duration-150 m-1"
+                >
                     <div>ポイントに換える</div>
                 </button>
-                <button type="button" @click="submit('delivery')" :class="{ 'opacity-25': processing || (!hasCheck) }" :disabled="processing || (!hasCheck)" class="w-40 inline-block items-center px-4 py-2 hover:bg-[#896858] bg-[#60493d] font-semibold text-sm text-white uppercase tracking-widest active:bg-indigo-500 focus:outline-none focus:border-indigo-500 focus:shadow-outline-lime transition ease-in-out duration-150 m-1">
+                <button 
+                    type="button" 
+                    @click="submit('delivery')" 
+                    :class="{ 'opacity-25': processing || (!hasCheck) }" 
+                    :disabled="processing || (!hasCheck)"
+                    class="w-40 inline-block items-center px-4 py-2 hover:bg-[#896858] bg-[#60493d] font-semibold text-sm text-white uppercase tracking-widest active:bg-indigo-500 focus:outline-none focus:border-indigo-500 focus:shadow-outline-lime transition ease-in-out duration-150 m-1"
+                >
                     <div>発送する</div>
                 </button>
             </div>
@@ -134,13 +147,13 @@
 </template>
 
 <style scoped>
-.custom-checkbox {
-    background-color: white !important;
-}
+    .custom-checkbox {
+        background-color: white !important;
+    }
 
-::v-deep input[type="checkbox"].custom-checkbox {
-    background-color: white !important;
-}
+    ::v-deep input[type="checkbox"].custom-checkbox {
+        background-color: white !important;
+    }
 </style>
 
 <script>
@@ -165,7 +178,11 @@ export default {
             tab_id: 1,
             ready_delivery: 0,
             checks: [],
-            processing: false
+            checkboxes: [],
+            processing: false,
+            count: 0,
+            points: 0,
+            clicked: 0,
         }
     },
     setup() {
@@ -175,48 +192,89 @@ export default {
         this.getProducts(this.tab_id);
     },
     computed: {
-        ...mapState(['products', 'products_count']),
-        ...mapGetters(['products', 'products_count'])
+        // ...mapState(['products', 'products_count']),
+        ...mapGetters(['products', 'products_count']),
     },
     mounted() {
-        let check = {};
-        for(let i = 0; i < this.products_count; i++) {
-            check['id'+ this.products[i]['id']] = false;            
-        }
+        // let check = {};
+        // for(let i = 0; i < this.products_count; i++) {
+        //     check['id'+ this.products[i]['id']] = false;            
+        // }
         
-        const form = {
-            checks: check
-        }
-        return { form }
+        // const form = {
+        //     checks: check
+        // }
+        // return { form }
+
     },
     methods: {
-        ...mapActions(['getProducts']),
+        ...mapActions(['getProducts', 'exchangeToPoint']),
 
         async change_tab (tab_id){
+            this.tab_id = tab_id;
             this.tab.forEach(tab => tab.is_active = tab.id === tab_id);
             this.getProducts(tab_id);
         },
 
-        changeCheck() {
-            let hasCheckLocal = false;
-            for(let i=0; i< this.products.length; i++) {
-                if (this.checks['id'+this.products[i]['id']] ) {
-                    hasCheckLocal = true;
-                    break;
+        changeCheck(id) {
+            var value = false;
+            var index = -1;
+            if(!this.checkboxes.length){
+                this.checkboxes.push(id);
+            } else {
+                for(let i = 0; i < this.checkboxes.length; i++) {
+                    if(id == this.checkboxes[i]){
+                        value = true;
+                        index = i;
+                        break;
+                    }
+                }
+
+                if(value){
+                    this.checkboxes.splice(index, 1);
+                } else {
+                    this.checkboxes.push(id);
                 }
             }
-            this.hasCheck = hasCheckLocal;
+
+            if(this.checkboxes.length) this.hasCheck = true;
+            value = false;
+            index = -1;
+
+        },
+
+        calcuateCount() {
+            let count = 0; 
+            var point = 0;
+            for(let i = 0; i < this.products_count; i++) {
+                if (this.checks['id'+this.products[i]['id']]) {
+                    count++; 
+                    point = parseInt(point) + parseInt(this.products[i]['point']);
+                }
+            }
+            this.count = count;
+            this.points = point;
+        },
+
+        exchange() {
+            this.calcuateCount();
+            if(this.points>0) {
+                if (confirm('交換しますか？ 選択した '+this.count+'点の商品を '+ this.points +'ptと交換します。')){
+                    this.exchangeToPoint({
+                        checks: this.checkboxes
+                    });
+                }
+            } 
+
+        },
+
+        tranfer(){
+
         },
        
         submit(submit_type) {
-            // let i; let products_count = 0; var point = 0;
-            // for(i=0; i<this.products.length; i++) {
-            //     if (this.form.checks['id'+this.products[i]['id']]) {
-            //         products_count++; point = parseInt(point) + parseInt(this.products[i]['point']);
-            //     }
-            // }
+            
 
-            // let need_submit = false;
 
             // if(submit_type=="point") {
             //     if(point>0) {

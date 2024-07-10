@@ -29,6 +29,11 @@ export default {
             } catch (error) {
                 console.error('Error fetching products:', error);
             }
+        },
+
+        exchangeToPoint: async ({ commit }, data) => {
+            const response = await axios.post('/api/products/exchange', data);
+            
         }
     },
 

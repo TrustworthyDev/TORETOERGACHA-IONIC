@@ -5,6 +5,8 @@ const state = {
     user: null,
     isAuth: false,
     token: localStorage.getItem("token") || "",
+    point: 0,
+    
 };
 
 const getters = {
