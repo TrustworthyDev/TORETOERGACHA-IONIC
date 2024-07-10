@@ -44,13 +44,6 @@ export default {
         }
     },
 
-    // var data = {
-    //     errors: Object,
-    //     auth: Object,
-    //     category_share:Object,
-    //     points:Object,
-    // },
-
     async created() {
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;

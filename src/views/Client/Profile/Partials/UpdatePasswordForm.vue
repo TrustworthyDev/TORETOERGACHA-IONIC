@@ -1,34 +1,35 @@
 <script setup>
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+import { toast } from 'vue3-toastify';
+
 import InputError from '../../../Components/InputError.vue';
 import InputLabel from '../../../Components/InputLabel.vue';
 import PrimaryButton from '../../../Components/PrimaryButton.vue';
 import TextInput from '../../../Components/TextInput.vue';
-import { ref } from 'vue';
 
-const passwordInput = ref(null);
-const currentPasswordInput = ref(null);
+const user = JSON.parse(localStorage.getItem('user')) || {};
 
-const form = ref({
-    current_password: '',
+const form = {
+    current_password: user.password || '',
     password: '',
     password_confirmation: '',
-});
+    id: user.id || '',
+};
+
+const store = useStore();
 
 const updatePassword = () => {
-    form.put(route('password.update'), {
-        preserveScroll: true,
-        onSuccess: () => form.reset(),
-        onError: () => {
-            if (form.errors.password) {
-                form.reset('password', 'password_confirmation');
-                passwordInput.value.focus();
-            }
-            if (form.errors.current_password) {
-                form.reset('current_password');
-                currentPasswordInput.value.focus();
-            }
-        },
-    });
+    if(form.password == form.password_confirmation) {
+        store.dispatch('updateProfilePassword', form);
+    } else {
+        toast('<strong>通知</strong> \n' + 'パスワードが一致していません。', {
+            "theme": "auto",
+            "type": "warning",
+            "autoClose": 2500,
+            "dangerouslyHTMLString": true
+        })
+    }
 };
 </script>
 

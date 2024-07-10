@@ -34,6 +34,9 @@ import axios from 'axios';
 
 if(localStorage.getItem('token')) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+
+  const token = document.head.querySelector('meta[name="csrf-token"]');
+  axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 }
 
 import { SERVER_URL } from './config';

@@ -17,6 +17,7 @@ const form = {
     name: user.name || '',
     email: user.email || '',
     phone: user.phone || '',
+    userId: user.id || '',
 };
 
 const store = useStore();
