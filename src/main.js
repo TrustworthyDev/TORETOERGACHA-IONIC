@@ -29,9 +29,16 @@ import axios from 'axios';
 
 import "vue3-toastify/dist/index.css";
 
-if(localStorage.getItem('token')) {
+const token = localStorage.getItem('token');
+if (token) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+  store.dispatch('checkLoginState');
+} else {
+  axios.defaults.headers.common['Authorization'] = ``;
+  console.log('You should login first');
 }
+
+
 
 import { SERVER_URL } from './config';
 axios.defaults.baseURL = SERVER_URL + '';

@@ -59,6 +59,7 @@ import axios from 'axios';
 import { IonButton, IonCheckbox } from '@ionic/vue';
 import Layout from '../Layout/Admin.vue';
 import { mapActions } from "vuex";
+import { jwtDecode } from 'jwt-decode';
 
 export default {
     components: { Layout, IonButton, IonCheckbox },
@@ -73,23 +74,12 @@ export default {
         ...mapActions(["LogIn"]),
 
         submit() {
-            axios.post(`api/auth/login`, {
+            this.LogIn({
                 email: this.email,
                 password: this.password
-            }).then(async res => {
-                if (res.data.success) {
-                    await this.LogIn(res.data.token);
-                    window.location.href = '/';
-                    // this.$router.push({
-                    //     name: 'Home'
-                    // })
-                }
-                else {
-                    alert(res.data.message);
-                }
-            }).catch(err => {
-                this.errors = err;
-            });
+            }).then(() => {
+                this.$router.push('/');
+            })
         },
 
         switchVisibility() {

@@ -72,7 +72,7 @@
                                     </RouterLink>
                                 </div>
 
-                                <a href="#" v-if="isLoggedIn"
+                                <a href="#" v-if="isAuth"
                                     class="flex text-center text-sm text-white rounded-md bg-[#896858] overflow-hidden h-fit">
                                     <div class="flex items-center py-1 px-3">
                                         <img src="/images/icon_cash.png" class="h-6 mr-2" />
@@ -84,7 +84,7 @@
                                 </a>
 
                                 <div class="relative flex-shrink-0 flex items-center">
-                                    <img v-if="isLoggedIn" @click="sidebarOpened = true"
+                                    <img v-if="isAuth" @click="sidebarOpened = true"
                                         class="w-8 h-8 inline cursor-pointer" src="/images/dopakun.png" />
                                     <RouterLink :to="{ path: '/login' }" v-else
                                         class="h-8 border-solid border-neutral-600 hover:bg-[#896858] border rounded-md flex items-center px-5 text-sm text-black hover:text-white">
@@ -141,6 +141,7 @@ import { XMarkIcon, ChevronLeftIcon, Bars3Icon } from '@heroicons/vue/24/outline
 import { useIonRouter, IonPage, IonContent, IonButton } from '@ionic/vue';
 import { mapActions } from "vuex";
 import Sidebar from '../Parts/Sidebar.vue';
+import { mapGetters } from 'vuex/dist/vuex.cjs.js';
 
 // import Toastify from "toastify-js";
 
@@ -233,8 +234,7 @@ export default {
         return { ionRouter };
     },
     computed: {
-        isLoggedIn: function() { return this.$store.getters.isAuth },
-        user: function() { return JSON.parse(localStorage.getItem('user')) }
+        ...mapGetters(['isAuth', 'user']),
     },
     mounted() {
     }

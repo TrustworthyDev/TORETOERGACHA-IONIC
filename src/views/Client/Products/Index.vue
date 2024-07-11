@@ -192,8 +192,7 @@ export default {
         this.getProducts(this.tab_id);
     },
     computed: {
-        // ...mapState(['products', 'products_count']),
-        ...mapGetters(['products', 'products_count']),
+        ...mapGetters(['user', 'products', 'products_count']),
     },
     mounted() {
         // let check = {};
@@ -261,7 +260,8 @@ export default {
             if(this.points>0) {
                 if (confirm('交換しますか？ 選択した '+this.count+'点の商品を '+ this.points +'ptと交換します。')){
                     this.exchangeToPoint({
-                        checks: this.checkboxes
+                        checks: this.checkboxes,
+                        user_id: this.user.id
                     });
                 }
             } 
