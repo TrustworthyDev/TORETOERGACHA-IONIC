@@ -42,8 +42,8 @@ const actions = {
             email: email,
             password: password
         }).then(async res => {
-            this.token = res.data.token;
-            commit('setUser', this.token);
+            commit('SET_ISAUTH', true);
+            commit('SET_USER', res.data.token);
         }).catch(err => {
             this.errors = err;
         });
@@ -51,16 +51,17 @@ const actions = {
     },
 
     async LogOut({ commit }) {
-        commit('LogOut')
+        commit('LOGOUT')
     },
 
     async checkLoginState({ commit }) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
         await axios.post(`${SERVER_URL}/api/auth/user`, {
             id: localStorage.getItem('ID')
         }).then(res => {
-            commit('CHECKLOGINSTATE', res.data);
+            commit('UPDATE_USER', res.data);
+            commit('SET_ISAUTH', true);
         }).catch(err => {
             console.error('Error checking login state:', err);
         });
@@ -69,16 +70,11 @@ const actions = {
 };
 
 const mutations = {
-    async CHECKLOGINSTATE(state, data) {
-        state.user = data;
-        state.isAuth = true;
-    },
-
-    async setUser(state, token) {
+    async SET_USER(state, token) {
         setUserInfo(state, token);
     },
 
-    LogOut(state) {
+    LOGOUT(state) {
         state.user = null
         state.token = ""
         state.isAuth = false;
@@ -86,6 +82,13 @@ const mutations = {
         localStorage.removeItem('ID');
     },
 
+    UPDATE_USER(state, user) {
+        state.user = user;
+    },
+
+    SET_ISAUTH(state, isAuth) {
+        state.isAuth = isAuth;
+    }
     
 };
 

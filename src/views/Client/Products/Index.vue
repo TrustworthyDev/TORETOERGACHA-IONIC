@@ -193,6 +193,7 @@ export default {
     },
     computed: {
         ...mapGetters(['user', 'products', 'products_count']),
+
     },
     mounted() {
         // let check = {};
@@ -204,10 +205,10 @@ export default {
         //     checks: check
         // }
         // return { form }
-
+            this.calcuateCount();
     },
     methods: {
-        ...mapActions(['getProducts', 'exchangeToPoint']),
+        ...mapActions(['getProducts', 'exchangeToPoint', 'checkLoginStatus']),
 
         async change_tab (tab_id){
             this.tab_id = tab_id;
@@ -246,7 +247,7 @@ export default {
             let count = 0; 
             var point = 0;
             for(let i = 0; i < this.products_count; i++) {
-                if (this.checks['id'+this.products[i]['id']]) {
+                if (this.checks['id' + this.products[i]['id']]) {
                     count++; 
                     point = parseInt(point) + parseInt(this.products[i]['point']);
                 }
@@ -255,13 +256,17 @@ export default {
             this.points = point;
         },
 
-        exchange() {
+        async exchange() {
             this.calcuateCount();
             if(this.points>0) {
                 if (confirm('交換しますか？ 選択した '+this.count+'点の商品を '+ this.points +'ptと交換します。')){
                     this.exchangeToPoint({
                         checks: this.checkboxes,
-                        user_id: this.user.id
+                        id: this.user.id,
+                        count: this.count,
+                        points: this.points
+                    }).then(res => {
+                        this.getProducts(this.tab_id);
                     });
                 }
             } 

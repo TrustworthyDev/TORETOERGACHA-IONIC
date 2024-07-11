@@ -73,13 +73,19 @@ export default {
     methods: {
         ...mapActions(["LogIn"]),
 
-        submit() {
-            this.LogIn({
-                email: this.email,
-                password: this.password
-            }).then(() => {
-                this.$router.push('/');
-            })
+        async submit() {
+            this.processing = true;
+            try {
+                await this.LogIn({
+                    email: this.email,
+                    password: this.password
+                });
+                await this.$router.push('/');
+            } catch (error) {
+                console.error("Login failed:", error);
+            } finally {
+                this.processing = false;
+            }
         },
 
         switchVisibility() {

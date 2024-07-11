@@ -234,9 +234,10 @@ export default {
         return { ionRouter };
     },
     computed: {
-        ...mapGetters(['isAuth', 'user']),
+        ...mapGetters(['user', 'isAuth']),
     },
     mounted() {
+        
     }
 }
 </script>
