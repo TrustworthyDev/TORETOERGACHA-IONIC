@@ -48,6 +48,7 @@ const actions = {
             this.errors = err;
         });
         
+        return true;
     },
 
     async LogOut({ commit }) {

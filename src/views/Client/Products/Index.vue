@@ -66,7 +66,7 @@
                 </button>
                 <button 
                     type="button" 
-                    @click="submit('delivery')" 
+                    @click="tranfer()" 
                     :class="{ 'opacity-25': processing || (!hasCheck) }" 
                     :disabled="processing || (!hasCheck)"
                     class="w-40 inline-block items-center px-4 py-2 hover:bg-[#896858] bg-[#60493d] font-semibold text-sm text-white uppercase tracking-widest active:bg-indigo-500 focus:outline-none focus:border-indigo-500 focus:shadow-outline-lime transition ease-in-out duration-150 m-1"
@@ -273,8 +273,17 @@ export default {
 
         },
 
-        tranfer(){
+        async tranfer(){
+            await this.calcuateCount();
+            if (this.points < 1000) {
+                alert('発送は１０００ポイント以上からお願いします。');
+                return ;
+            }
 
+            if(products_count>0) {
+                this.products_count = products_count;
+                this.ready_delivery = 1;
+            } 
         },
        
         submit(submit_type) {

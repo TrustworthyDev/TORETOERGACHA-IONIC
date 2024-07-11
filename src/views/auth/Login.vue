@@ -79,8 +79,11 @@ export default {
                 await this.LogIn({
                     email: this.email,
                     password: this.password
+                }).then((res) => {
+                    if (res) {
+                        this.$router.push('/');
+                    }
                 });
-                await this.$router.push('/');
             } catch (error) {
                 console.error("Login failed:", error);
             } finally {
