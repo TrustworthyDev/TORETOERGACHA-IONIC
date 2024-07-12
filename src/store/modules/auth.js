@@ -4,7 +4,6 @@ import { SERVER_URL } from '../../config';
 
 async function setUserInfo(state, token) {
     try {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         localStorage.setItem('token', token);
         await axios.get(`api/auth/user`).then(res => {
             state.user = res.data;
@@ -13,7 +12,6 @@ async function setUserInfo(state, token) {
         });
 
     } catch (error) {
-        console.error('Error setting user info:', error);
         state.user = {};
         state.token = '';
         state.isAuth = false;
@@ -44,24 +42,10 @@ const actions = {
             password: password
         }).then(async res => {
             if(res.data.success == 1){
-                commit('SET_USER', res.data.user);
-                commit('SET_TOKEN', res.data.token);
-                commit('SET_ISAUTH', true);
-            } else if(res.data.success == 0){
-                toast('<strong>通知</strong> \n' + res.data.message, {
-                    "theme": "auto",
-                    "type": "error",
-                    "autoClose": 2000,
-                    "dangerouslyHTMLString": true
-                });
-            } else if (res.data.success == 2){
-                commit('SET_ERRORS', res.data.message);
-                console.log(state)
+                axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+                commit('SET_USER', res.data.token);
             }
-            // axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-            // commit('SET_ISAUTH', true);
-            // commit('SET_USER', res.data.token);
-            // commit('SET_TOKEN', res.data.token);
+
         }).catch(err => {
             this.errors = err;
         });
@@ -70,24 +54,24 @@ const actions = {
     },
 
     removeEmailErrors({ commit }) {
-        commit('REMOVE_EMAIL_ERRORS');
+        // commit('REMOVE_EMAIL_ERRORS');
     },
 
     removePasswordErrors({ commit }) {
-        commit('REMOVE_PASSWORD_ERRORS');
+        // commit('REMOVE_PASSWORD_ERRORS');
     },
 
     async LogOut({ commit }) {
         commit('LOGOUT')
     },
 
-    async checkLoginState({ commit }) {
-
-        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-        await axios.post(`${SERVER_URL}/api/auth/user`)
+    async checkLoginState({ commit }) { 
+        console.log('CHECK_LOGIN_STATE');
+        await axios.get(`${SERVER_URL}/api/auth/user`)
         .then(res => {
-            commit('UPDATE_USER', res.data);
             commit('SET_ISAUTH', true);
+            commit('SET_TOKEN', localStorage.getItem('token'));
+            commit('RESET_USER', res.data);
         }).catch(err => {
             console.error('Error checking login state:', err);
         });
@@ -96,9 +80,13 @@ const actions = {
 };
 
 const mutations = {
-    async SET_USER(state, user) {
-        // setUserInfo(state, token);
+    async SET_USER(state, token) {
+        setUserInfo(state, token);
+    },
+
+    RESET_USER(state, user){
         state.user = user;
+        console.log(state.user);
     },
 
     SET_TOKEN(state, token) {
@@ -118,7 +106,6 @@ const mutations = {
     },
 
     REMOVE_EMAIL_ERRORS(state){
-        console.log('removeEmail');
         state.errors.email = [];
     },
 
@@ -127,10 +114,8 @@ const mutations = {
     },
 
     REMOVE_PASSWORD_ERRORS(state){
-        console.log('removePassword');
         // state.errors.password = [];
         state.errors = { ...state.errors, password: null };
-        console.log('Updated state.errors.password:', state); // Add this line
     },
 
     LOGOUT(state) {
@@ -139,13 +124,6 @@ const mutations = {
         state.isAuth = false;
         localStorage.removeItem('token');
     },
-
-    UPDATE_USER(state, user) {
-        state.user = user;
-    },
-
-
-    
 };
 
 

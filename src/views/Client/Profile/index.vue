@@ -14,7 +14,7 @@
         status: Boolean,
         invitations: Object,
     });
-    
+
     document.title = "プロフィール";
     
 </script>

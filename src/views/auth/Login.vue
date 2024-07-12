@@ -99,7 +99,7 @@ export default {
                     password: this.password
                 }).then((res) => {
                     if (res) {
-                        // this.$router.push('/');
+                        this.$router.push('/');
                     }
                 });
             } catch (error) {
@@ -118,7 +118,6 @@ export default {
         },
 
         changePassword() {
-            
             this.removePasswordErrors();
         },
 

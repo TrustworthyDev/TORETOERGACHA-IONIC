@@ -1,5 +1,6 @@
+<!-- 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import InputError from '../../../Components/InputError.vue';
 import InputLabel from '../../../Components/InputLabel.vue';
@@ -8,11 +9,12 @@ import TextInput from '../../../Components/TextInput.vue';
 
 const props = defineProps({
     mustVerifyEmail: Boolean,
-    status: String,
+    status: Boolean,
 });
 
 const store = useStore();
 const user = useStore().getters.user;
+console.log(user);
 
 const form = {
     name: user.name,
@@ -22,9 +24,9 @@ const form = {
 
 const submit = () => {
     store.dispatch('updateProfileInformation', { name: user.name, email: user.email, phone: user.phone });
-}
+} 
 
-</script>
+</script> -->
 
 <template>
     <section>
@@ -36,21 +38,21 @@ const submit = () => {
         <form @submit.prevent="submit" class="mt-6 space-y-6">
             <div>
                 <InputLabel for="name" value="名前" class=" pl-2" />
-                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="user.name" required autofocus
+                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="name" required autofocus
                     autocomplete="name" />
                 <!-- <InputError class="mt-2" :message="form.errors.name" /> -->
             </div>
 
             <div>
                 <InputLabel for="email" value="電子メールアドレス" class=" pl-2" />
-                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="user.email" required
+                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="email" required
                     autocomplete="email" />
                 <!-- <InputError class="mt-2" :message="form.errors.email" /> -->
             </div>
 
             <div>
                 <InputLabel for="phone" value="電話番号" class=" pl-2" />
-                <TextInput id="phone" type="text" class="mt-1 block w-full" v-model="user.phone" required
+                <TextInput id="phone" type="text" class="mt-1 block w-full" v-model="phone" required
                     autocomplete="phone" />
                 <!-- <InputError class="mt-2" :message="form.errors.phone" /> -->
             </div>
@@ -69,3 +71,56 @@ const submit = () => {
         </form>
     </section>
 </template>
+
+<script>
+import { mapGetters } from 'vuex';
+import InputError from '../../../Components/InputError.vue';
+import InputLabel from '../../../Components/InputLabel.vue';
+import TextInput from '../../../Components/TextInput.vue';
+
+export default {
+    components: {
+        InputError,
+        InputLabel,
+        TextInput,
+    },
+    data() {
+        return {
+            name: '',
+            email: '',
+            phone: '',
+            form: {
+                processing: false,
+                recentlySuccessful: false,
+            }
+        };
+    },
+
+    computed:{
+        ...mapGetters(['user']),
+    },
+
+    methods: {
+        submit() {
+            this.$store.dispatch('updateProfileInformation', { name: this.name, email: this.email, phone: this.phone });
+        },
+    },
+
+    mounted() {
+        this.name = this.user.name;
+        this.email = this.user.email;
+        this.phone = this.user.phone;
+        console.log(this.user.name)
+    },
+
+    watch: {
+        user: {
+            handler(newVal, oldVal) {
+                this.name = newVal.name;
+                this.email = newVal.email;
+                this.phone = newVal.phone;
+            },
+        },
+    },
+}
+</script>

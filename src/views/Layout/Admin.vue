@@ -86,7 +86,7 @@
                                 <div class="relative flex-shrink-0 flex items-center">
                                     <img v-if="isAuth" @click="sidebarOpened = true"
                                         class="w-8 h-8 inline cursor-pointer" src="/images/dopakun.png" />
-                                    <RouterLink :to="{ path: '/login' }" v-else
+                                    <RouterLink v-else :to="{ path: '/login' }"
                                         class="h-8 border-solid border-neutral-600 hover:bg-[#896858] border rounded-md flex items-center px-5 text-sm text-black hover:text-white">
                                         ログイン
                                     </RouterLink>
@@ -189,6 +189,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions(["LogOut"]),
         format_number(n) {
             return String(n).replace(/(.)(?=(\d{3})+$)/g, '$1,');
         },
@@ -220,7 +221,7 @@ export default {
                 return 'text-neutral-700 hover:text-neutral-900 text-sm hover:underline';
             }
         },
-        ...mapActions(["LogOut"]),
+        
         async logout() {
             await this.LogOut();
             this.sidebarOpened = false;
@@ -235,7 +236,6 @@ export default {
         ...mapGetters(['user', 'isAuth']),
     },
     mounted() {
-
     }
 }
 </script>
