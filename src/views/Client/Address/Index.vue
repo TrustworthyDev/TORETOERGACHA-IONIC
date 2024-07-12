@@ -85,7 +85,7 @@
 
 <script>
 import axios from 'axios';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapGetters } from 'vuex';
 import { toast } from 'vue3-toastify';
 
 
@@ -93,17 +93,6 @@ import AdminLayout from '../../Layout/Admin.vue';
 import prefectures from '../../Store/prefectures';
 
 
-
-var form = {
-    first_name:'',
-    last_name:'',
-    first_name_gana:'',
-    last_name_gana:'',
-    postal_code:'',
-    prefecture: prefectures[0],
-    address:'',
-    phone:'',
-}
 
 export default {
     components: {
@@ -116,15 +105,23 @@ export default {
     data() {
         return {
             prefectures: prefectures,
-            errors: {},
-            form: form,
+            form: {
+                first_name: '',
+                last_name: '',
+                first_name_gana: '',
+                last_name_gana: '',
+                postal_code: '',
+                prefecture: prefectures[0],
+                address: '',
+                phone: '',
+            },
             isDialogMessage: false,
             dialogTitle: '',
             dialogMessage: '',
         }
     },
     computed: {
-        ...mapState(["errors", "profile"]),
+        ...mapGetters(["profile"]),
     },
     methods: {
         ...mapActions(["getProfile", "saveProfile"]),
@@ -148,8 +145,12 @@ export default {
         },
     },
     mounted() {
-        this.errors = this.$store.getters.getErrors;
-        this.form = this.$store.getters.getProfile;
+
     },
+    watch : {
+        profile: function(newVal, oldVal) {
+            this.form = newVal;
+        }
+    }
 }
 </script>

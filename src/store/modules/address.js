@@ -6,48 +6,49 @@ const state = {
 }
 
 const getters = {
-    getProfile(state){
+    profile(state){
         return state.profile;
     },
 
-    getErrors(state){
+    errors(state){
         return state.errors;
     }
 }
 
 const actions = {
     async getProfile({commit}){
-        const response = await axios.get('/api/profile');
-        commit('setProfile', response.data);
+        await axios.get('/api/profile').then((response) => {
+            commit('SET_PROFILE', response.data.profile);
+        });
     },
 
     async saveProfile({commit}, profile){
         try {
             const response = await axios.post('/api/profile', profile);
-            commit('setProfile', response.data.profile);
-            commit('setErrors', {});
-            return response.data.message;
+            commit('SET_PROFILE', response.data.profile);
+            // commit('SET_ERRORS', {});
+            // return response.data.message;
 
           } catch (error) {
-            if (error.response && error.response.status === 422) {
-                console.log(error.response.data.errors);
-              commit('setErrors', error.response.data.errors);
-            } else {
-              // Handle other errors
-              console.error('An error occurred:', error);
-            }
+            // if (error.response && error.response.status === 422) {
+            //     console.log(error.response.data.errors);
+            //   commit('SET_ERRORS', error.response.data.errors);
+            // } else {
+            //   // Handle other errors
+            //   console.error('An error occurred:', error);
+            // }
           }
         
-        // commit('setProfile', response.data);
+        // commit('SET_PROFILE', response.data);
     }
 }
 
 const mutations = {
-    setProfile(state, profile){
+    SET_PROFILE(state, profile){
         state.profile = profile;
     },
 
-    setErrors(state, errors){
+    SET_ERRORS(state, errors){
         state.errors = errors;
     }
 }

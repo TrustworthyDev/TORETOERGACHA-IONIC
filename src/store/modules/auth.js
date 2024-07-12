@@ -86,7 +86,6 @@ const mutations = {
 
     RESET_USER(state, user){
         state.user = user;
-        console.log(state.user);
     },
 
     SET_TOKEN(state, token) {

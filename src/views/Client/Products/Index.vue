@@ -158,10 +158,9 @@
 
 <script>
 import { IonCheckbox } from '@ionic/vue';
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 
 import AdminLayout from '../../Layout/Admin.vue';
-import { mapGetters } from 'vuex/dist/vuex.cjs.js';
 
 export default {
     components: {
@@ -261,7 +260,6 @@ export default {
                 if (confirm('交換しますか？ 選択した '+this.count+'点の商品を '+ this.points +'ptと交換します。')){
                     this.exchangeToPoint({
                         checks: this.checkboxes,
-                        id: this.user.id,
                         count: this.count,
                         points: this.points
                     }).then(res => {
@@ -284,34 +282,6 @@ export default {
                 this.ready_delivery = 1;
             } 
         },
-       
-        submit(submit_type) {
-            
-
-
-            // if(submit_type=="point") {
-            //     if(point>0) {
-            //         if (confirm('交換しますか？ 選択した'+products_count+'点の商品を'+ point +'ptと交換します。')){
-            //             this.form.post(route('user.products.point.exchange'), {
-            //                 onFinish: () => {
-            //                 },
-            //             });
-            //         }
-            //     } 
-            // } else {
-            //     if (point < 1000) {
-            //         alert('発送は１０００ポイント以上からお願いします。');
-            //         return ;
-            //     }
-            //     if(products_count>0) {
-            //         this.products_count = products_count;
-            //         this.ready_delivery = 1;
-            //         // if (confirm('選択した'+products_count+'点の商品を発送しますか？')){
-            //         //     
-            //         // }
-            //     } 
-            // }
-        },
         back_delivery() {
             // this.ready_delivery = 0;
         },  
@@ -330,13 +300,12 @@ export default {
             
         },        
     },
-    // watch : {
-    //     flash: function(newVal, oldVal) {
-    //         if (newVal.data) {
-    //             if (newVal.data.delivery_result && newVal.data.delivery_result == 'fail') this.ready_delivery = 1;
-    //             if (newVal.data.delivery_result && newVal.data.delivery_result == 'success') this.ready_delivery = 2;
-    //         }
-    //     }
-    // },
+    watch : {
+        user: {
+            handler(newVal, oldVal) {
+                this.user.point = newVal.point;
+            },
+        },
+    },
 }
 </script>
