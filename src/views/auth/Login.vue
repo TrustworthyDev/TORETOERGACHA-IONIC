@@ -10,19 +10,30 @@
                     <input v-model="email" id="text1" type="email"
                         class="w-full shadow-xs border border-neutral-300 rounded-md placeholder-neutral-300 px-4 py-3 bg-white" 
                         placeholder="例) user@Toretoreoripa.co"
+                        @change="changeEmail()"
                     />
-                        <div v-if="errors.email" v-for="error in errors.email" class="text-red-500 text-sm mt-1">
-                            {{ error }}
+                        <div 
+                            v-if="errors.email"
+                            class="text-red-500 text-sm mt-1"
+                        >
+                            {{ errors.email[0] }}
                         </div>
 
                     <div class="h-4"></div>
                     <label for="text2" class="block text-md font-bold text-neutral-700 p-2">パスワード</label>
-                    <input v-model="password" id="text2" :type="passwordFieldType"
+                    <input 
+                        v-model="password" 
+                        id="text2" 
+                        :type="passwordFieldType"
                         class="w-full shadow-xs border border-neutral-300 rounded-md placeholder-neutral-300 px-4 py-3 bg-white"
                         placeholder="半角英数字6～20文字"
+                        @change="changePassword()"
                     />
-                        <div v-if="errors.password" v-for="error in errors.password" class="text-red-500 text-sm mt-1">
-                            {{ error }}
+                        <div 
+                            v-if="errors.password && errors.password.length"
+                            class="text-red-500 text-sm mt-1"
+                        >
+                            {{ errors.password[0] }}
                         </div>
                 </div>
 
@@ -55,11 +66,10 @@
 
 </template>
 <script>
-import axios from 'axios';
 import { IonButton, IonCheckbox } from '@ionic/vue';
+import { mapActions, mapGetters } from "vuex";
 import Layout from '../Layout/Admin.vue';
-import { mapActions } from "vuex";
-import { jwtDecode } from 'jwt-decode';
+
 
 export default {
     components: { Layout, IonButton, IonCheckbox },
@@ -68,10 +78,18 @@ export default {
         email: "test@user.com",
         password: "Admin.1234",
         processing: false,
-        errors: {},
     }),
+    setup() {
+
+    },
+    mounted() {
+
+    },
+    computed: {
+        ...mapGetters(["errors"]),
+    },
     methods: {
-        ...mapActions(["LogIn"]),
+        ...mapActions(["LogIn", 'removeEmailErrors', 'removePasswordErrors']),
 
         async submit() {
             this.processing = true;
@@ -81,7 +99,7 @@ export default {
                     password: this.password
                 }).then((res) => {
                     if (res) {
-                        this.$router.push('/');
+                        // this.$router.push('/');
                     }
                 });
             } catch (error) {
@@ -95,15 +113,19 @@ export default {
             this.passwordFieldType = this.passwordFieldType === "password" ? "text" : "password";
         },
 
+        changeEmail() {
+            this.removeEmailErrors();
+        },
+
+        changePassword() {
+            
+            this.removePasswordErrors();
+        },
+
         route(str) {
             return str;
         }
     },
-    setup() {
-
-    },
-    mounted() {
-
-    },
+    
 }
 </script>

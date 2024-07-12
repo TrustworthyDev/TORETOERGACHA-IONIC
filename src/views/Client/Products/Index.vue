@@ -193,7 +193,6 @@ export default {
     },
     computed: {
         ...mapGetters(['user', 'products', 'products_count']),
-
     },
     mounted() {
         // let check = {};
