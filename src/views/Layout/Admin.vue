@@ -72,7 +72,7 @@
                                     </RouterLink>
                                 </div>
 
-                                <a href="#" v-if="isAuth"
+                                <a href="point" v-if="isAuth"
                                     class="flex text-center text-sm text-white rounded-md bg-[#896858] overflow-hidden h-fit">
                                     <div class="flex items-center py-1 px-3">
                                         <img src="/images/icon_cash.png" class="h-6 mr-2" />
@@ -186,12 +186,10 @@ export default {
                 }
             ],
             year: new Date().getFullYear(),
-            // user: $store.user
         }
     },
     methods: {
         format_number(n) {
-            // return n;
             return String(n).replace(/(.)(?=(\d{3})+$)/g, '$1,');
         },
         notification(message) {
@@ -237,7 +235,7 @@ export default {
         ...mapGetters(['user', 'isAuth']),
     },
     mounted() {
-        
+
     }
 }
 </script>

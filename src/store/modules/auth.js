@@ -3,7 +3,7 @@ import { SERVER_URL } from '../../config';
 
 
 
-async function setUserInfo(state, token) {
+export async function setUserInfo(state, token) {
     try {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         localStorage.setItem('token', token);
@@ -26,14 +26,12 @@ const state = {
     user: {},
     token: '',
     isAuth: false,
-    userId: localStorage.getItem('ID') || null,
 };
 
 const getters = {
     isAuth: state => state.isAuth,
     user: state => state.user,
     token: state => state.token,
-    userId: state => state.userId
 };
 
 const actions = {
@@ -42,8 +40,10 @@ const actions = {
             email: email,
             password: password
         }).then(async res => {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
             commit('SET_ISAUTH', true);
             commit('SET_USER', res.data.token);
+            commit('SET_TOKEN', res.data.token);
         }).catch(err => {
             this.errors = err;
         });
@@ -73,6 +73,10 @@ const actions = {
 const mutations = {
     async SET_USER(state, token) {
         setUserInfo(state, token);
+    },
+
+    SET_TOKEN(state, token) {
+        state.token = token;
     },
 
     LOGOUT(state) {

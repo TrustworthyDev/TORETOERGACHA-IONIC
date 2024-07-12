@@ -77,21 +77,6 @@ const routes = [
         name: 'coupon',
         component: Coupon
     },
-    // {
-    //     path: '/main/terms_conditions',
-    //     name: 'main.terms_conditions',
-    //     component: TermsConditions
-    // },
-    // {
-    //     path: '/main/privacy_policy',
-    //     name: 'main.privacy_policy',
-    //     component: PrivacyPolicy
-    // },
-    // {
-    //     path: '/main/notation_commercial',
-    //     name: 'main.notation_commercial',
-    //     component: NotationCommercial
-    // },
     {
         path: '/detail/:id',
         name: 'detail',
@@ -113,4 +98,4 @@ router.beforeEach((to, from, next) => {
     }
 });
 
-export default router
+export default router;

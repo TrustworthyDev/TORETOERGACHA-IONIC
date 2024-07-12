@@ -1,26 +1,7 @@
 <script setup>
-// import { usePage, useForm } from '@inertiajs/inertia-vue3';
-// import { ref } from 'vue';
+    import { useStore } from 'vuex';
 
-// const props = defineProps({
-//     invitations: Array,
-// });
-
-const user = JSON.parse(localStorage.getItem('user'));
-// const confirmInvitation = (id) => {
-//     useForm({ id }).put(route('user.invitation.update'), {
-//         preserveScroll: true,
-//     });
-// };
-
-// const data = ref({
-//     status: false
-// });
-
-// const onShowAll = () => {
-//     data.value.status = !data.value.status
-// }
-
+    const user = useStore().getters.user;
 </script>
 
 <template>

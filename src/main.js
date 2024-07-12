@@ -1,7 +1,4 @@
 import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router';
-
 import { IonicVue } from '@ionic/vue';
 
 /* Core CSS required for Ionic components to work properly */
@@ -23,11 +20,15 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import './theme/app.css';
-
-import store from './store/index';
-import axios from 'axios';
-
 import "vue3-toastify/dist/index.css";
+
+import axios from 'axios';
+import App from './App.vue'
+import router from './router';
+import store from './store/index';
+import { SERVER_URL } from './config';
+
+axios.defaults.baseURL = SERVER_URL + '';
 
 const token = localStorage.getItem('token');
 if (token) {
@@ -39,9 +40,6 @@ if (token) {
 }
 
 
-
-import { SERVER_URL } from './config';
-axios.defaults.baseURL = SERVER_URL + '';
 const app = createApp(App)
   .use(IonicVue)
   .use(router)

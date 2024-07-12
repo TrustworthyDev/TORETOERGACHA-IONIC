@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { toast } from 'vue3-toastify';
 
+import auth from './auth';
+
 const state = {
-    user: {}
+    user: auth.user
 };
 
 const getters = {
@@ -10,16 +12,18 @@ const getters = {
 }
 
 const actions = {
-    updateProfileInformation({ commit }, form) {
-        console.log(form);
-        axios.put('/api/profile', form)
+    updateProfileInformation({ commit }, { name, email, phone }) {
+        axios.put('/api/profile', { name, email, phone })
             .then(response => {
                 toast('<strong>通知</strong> \n' + response.data.message, {
                     "theme": "auto",
                     "type": "success",
                     "autoClose": 2000,
                     "dangerouslyHTMLString": true
-                })
+                });
+                commit('SET_USER_NAME', name);
+                commit('SET_USER_EMAIL', email);
+                commit('SET_USER_PHONE', phone);
             });
     },
 
@@ -46,8 +50,14 @@ const actions = {
 }
 
 const mutations = {
-    updateProfileInformation(state, data) {
-        state.user = data;
+    SET_USER_NAME(state, name) {
+        state.user.name = name;
+    },
+    SET_USER_EMAIL(state, email) {
+        state.user.email = email;
+    },
+    SET_USER_PHONE(state, phone) {
+        state.user.phone = phone;
     }
 }
 

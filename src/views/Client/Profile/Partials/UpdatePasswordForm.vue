@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import { useStore } from 'vuex';
 import { toast } from 'vue3-toastify';
 
@@ -8,16 +7,16 @@ import InputLabel from '../../../Components/InputLabel.vue';
 import PrimaryButton from '../../../Components/PrimaryButton.vue';
 import TextInput from '../../../Components/TextInput.vue';
 
-const user = JSON.parse(localStorage.getItem('user')) || {};
+const store = useStore();
+const user = useStore().getters.user;
 
 const form = {
-    current_password: user.password || '',
+    current_password: user.password,
     password: '',
     password_confirmation: '',
-    id: user.id || '',
 };
 
-const store = useStore();
+
 
 const updatePassword = () => {
     if(form.password == form.password_confirmation) {

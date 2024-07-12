@@ -11,19 +11,17 @@ const props = defineProps({
     status: String,
 });
 
-const user = JSON.parse(localStorage.getItem('user')) || {};
+const store = useStore();
+const user = useStore().getters.user;
 
 const form = {
-    name: user.name || '',
-    email: user.email || '',
-    phone: user.phone || '',
-    userId: user.id || '',
+    name: user.name,
+    email: user.email,
+    phone: user.phone,
 };
 
-const store = useStore();
-
 const submit = () => {
-    store.dispatch('updateProfileInformation', form);
+    store.dispatch('updateProfileInformation', { name: user.name, email: user.email, phone: user.phone });
 }
 
 </script>
@@ -38,21 +36,21 @@ const submit = () => {
         <form @submit.prevent="submit" class="mt-6 space-y-6">
             <div>
                 <InputLabel for="name" value="名前" class=" pl-2" />
-                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus
+                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="user.name" required autofocus
                     autocomplete="name" />
                 <!-- <InputError class="mt-2" :message="form.errors.name" /> -->
             </div>
 
             <div>
                 <InputLabel for="email" value="電子メールアドレス" class=" pl-2" />
-                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
+                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="user.email" required
                     autocomplete="email" />
                 <!-- <InputError class="mt-2" :message="form.errors.email" /> -->
             </div>
 
             <div>
                 <InputLabel for="phone" value="電話番号" class=" pl-2" />
-                <TextInput id="phone" type="text" class="mt-1 block w-full" v-model="form.phone" required
+                <TextInput id="phone" type="text" class="mt-1 block w-full" v-model="user.phone" required
                     autocomplete="phone" />
                 <!-- <InputError class="mt-2" :message="form.errors.phone" /> -->
             </div>
