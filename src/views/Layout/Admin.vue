@@ -108,11 +108,11 @@
                                 <div v-if="!hide_footer" class="w-full">
                                     <div class="md:w-[760px] w-full mx-auto  pt-5 md:px-2 px-4 items-start">
                                         <div class="md:w-[760px] w-full text-center mx-auto pb-2 md:px-2 px-4 flex flex-wrap md:gap-20 md:justify-center">
-                                            <a :href="route('main.terms_conditions')"
+                                            <a href="terms-conditions"
                                                 class="text-inherit-400 text-center md:w-auto w-[100%]">利用規約</a>
-                                            <a :href="route('main.privacy_policy')"
+                                            <a href="privacy-policy"
                                                 class="text-inherit-400 text-center md:w-auto w-[100%]">プライバシーポリシー</a>
-                                            <a :href="route('main.notation_commercial')"
+                                            <a href="notation-commercial"
                                                 class="text-inherit-400 text-center md:w-auto w-[100%]">特定商取引法に基づく表記</a>
                                         </div>
                                         <hr class="border-black" />
@@ -120,7 +120,8 @@
                                             <span class="text-inherit-100 text-sm font-semibold mr-3">とれとれガチャステーション
                                             </span>
                                             <span class="text-inherit-400 text-xs">© {{ year }} all rights
-                                                reserved</span>
+                                                reserved
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
