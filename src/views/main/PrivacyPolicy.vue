@@ -1,6 +1,5 @@
 <template>
     <AdminLayout>
-        <Head title="プライバシーポリシー" />
         <div class="pt-6 md:px-2 px-4">  
             <h1 class="mb-2 text-lg font-bold">プライバシーポリシー</h1>
             <hr class="mb-8" />
@@ -99,5 +98,8 @@
     import AdminLayout from '../Layout/Admin.vue';
     export default {
         components: { AdminLayout },
+        setup() {
+            document.title = "プライバシーポリシー";
+        }
     }
 </script>

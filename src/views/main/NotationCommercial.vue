@@ -1,6 +1,5 @@
 <template>
     <AdminLayout>
-        <Head title="特定商取引法に基づく表記" />
         <div class="pt-6 md:px-2 px-4">  
             <h1 class="mb-2 text-lg font-bold">特定商取引法に基づく表記</h1>
             <hr class="mb-8" />
@@ -71,5 +70,8 @@
     import AdminLayout from '../Layout/Admin.vue';
     export default {
         components: { AdminLayout },
+        setup() {
+            document.title = "特定商取引法に基づく表記"
+        }
     }
 </script>

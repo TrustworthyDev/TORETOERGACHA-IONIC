@@ -1,6 +1,5 @@
 <template>
     <AdminLayout>
-        <Head title="利用規約" />
         <div class="pt-6 md:px-2 px-4">  
             <h1 class="mb-2 text-lg font-bold">利用規約</h1>
             <hr class="mb-8" />
@@ -277,5 +276,8 @@
     import AdminLayout from '../Layout/Admin.vue';
     export default {
         components: { AdminLayout },
+        setup() {
+            document.title = "利用規約";
+        }
     }
 </script>
