@@ -32,6 +32,11 @@ const routes = [
         component: HomePage
     },
     {
+        path: '/terms-conditions',
+        name: 'terms-conditions',
+        component: TermsConditions
+    },
+    {
         path: '/login',
         name: 'login',
         component: Login
