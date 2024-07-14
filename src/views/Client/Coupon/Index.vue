@@ -1,6 +1,5 @@
 <template>
     <AdminLayout>
-
         <div>
             <div class="text-center w-full p-4 mb-2 font-semibold">
                 <h3>プレゼントポイントの獲得</h3>
@@ -44,8 +43,10 @@
 </template> 
 
 <script>
-import AdminLayout from '../../Layout/Admin.vue';
+import { mapActions } from 'vuex';
 import axios from 'axios';
+
+import AdminLayout from '../../Layout/Admin.vue';
 
 var form = {
     code: ''
@@ -67,8 +68,9 @@ export default {
         
     },
     methods: {
+        ...mapActions(['getCoupon', "test"]),
         submit() {
-            this.form.post(route('user.coupon.post'));
+            this.getCoupon(this.form.code);
         }
     },
 }

@@ -10,9 +10,9 @@ const getters = {
         return state.profile;
     },
 
-    errors(state){
-        return state.errors;
-    }
+    // errors(state){
+    //     return state.errors;
+    // }
 }
 
 const actions = {

@@ -5,6 +5,7 @@ import address from './modules/address';
 import profile from './modules/profile';
 import point from './modules/point';
 import product from './modules/product';
+import coupon from './modules/coupon';
 
 // Load Vuex
 // Vue.use(Vuex);
@@ -15,6 +16,7 @@ export default new Vuex.Store({
         address,
         profile,
         point,
-        product
+        product,
+        coupon
     },
 });

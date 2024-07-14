@@ -94,14 +94,28 @@ export default {
         async submit() {
             this.processing = true;
             try {
-                await this.LogIn({
+                const res = await this.LogIn({
                     email: this.email,
                     password: this.password
-                }).then((res) => {
-                    if (res) {
-                        this.$router.push('/');
-                    }
                 });
+
+
+                if (res) {
+                    console.log("Router before navigation:", this.$router.currentRoute);
+
+                    // Ensure Vue Router is ready
+                    await this.$router.isReady();
+
+                    // Force re-render
+                    this.$forceUpdate();
+
+                    // Navigate after ensuring router is ready
+                    this.$nextTick(() => {
+                        console.log("Navigating to home...");
+                        this.$router.replace('/');
+                    });
+                }
+
             } catch (error) {
                 console.error("Login failed:", error);
             } finally {
