@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'vue3-toastify';
 
 const state = {
     profile: {},
@@ -25,9 +26,15 @@ const actions = {
     async saveProfile({commit}, profile){
         try {
             const response = await axios.post('/api/profile', profile);
+            if(response.data.success){
+                toast('<strong>通知</strong> \n' + response.data.message, {
+                    "theme": "auto",
+                    "type": "success",
+                    "autoClose": 2000,
+                    "dangerouslyHTMLString": true
+                })
+            }
             commit('SET_PROFILE', response.data.profile);
-            // commit('SET_ERRORS', {});
-            // return response.data.message;
 
           } catch (error) {
             // if (error.response && error.response.status === 422) {
@@ -38,8 +45,6 @@ const actions = {
             //   console.error('An error occurred:', error);
             // }
           }
-        
-        // commit('SET_PROFILE', response.data);
     }
 }
 

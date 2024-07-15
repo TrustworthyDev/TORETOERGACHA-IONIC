@@ -15,6 +15,7 @@ const actions = {
     updateProfileInformation({ commit }, { name, email, phone }) {
         axios.put('/api/profile', { name, email, phone })
             .then(response => {
+                console.log(response);
                 toast('<strong>通知</strong> \n' + response.data.message, {
                     "theme": "auto",
                     "type": "success",

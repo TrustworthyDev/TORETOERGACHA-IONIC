@@ -132,13 +132,7 @@ export default {
 
         async submit () {
             try{
-                var message = await this.saveProfile(this.form);
-                toast('<strong>通知</strong> \n' + message, {
-                    "theme": "auto",
-                    "type": "success",
-                    "autoClose": 2000,
-                    "dangerouslyHTMLString": true
-                })
+                await this.saveProfile(this.form);
             }catch(error){
                 console.log(error);
             }
