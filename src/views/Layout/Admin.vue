@@ -66,10 +66,10 @@
                         <div class="flex justify-center px-2 py-1">
                             <div class="md:w-[760px] w-full flex py-1 mx-auto justify-center items-center gap-1">
                                 <div class="flex items-center flex-1">
-                                    <RouterLink :to="{name: 'home'}" class="flex">
+                                    <a href="/" class="flex">
                                         <img class="mx-auto max-h-14 max-w-full mx-3 my-2" alt="とれとれガチャステーション"
                                             src="/images/logo.png" />
-                                    </RouterLink>
+                                    </a>
                                 </div>
 
                                 <a href="point" v-if="isAuth"

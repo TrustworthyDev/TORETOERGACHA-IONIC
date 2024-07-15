@@ -106,7 +106,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const token = localStorage.getItem('token');
-    if (!token && to.name !== 'login' && to.name !== 'register' && to.name !== 'forgot-password' && to.name !== 'terms-conditions' && to.name !== 'privacy-policy' && to.name !== 'notation-commercial') {
+    if (!token && to.name !== 'home' && to.name !== 'login' && to.name !== 'register' && to.name !== 'forgot-password' && to.name !== 'terms-conditions' && to.name !== 'privacy-policy' && to.name !== 'notation-commercial') {
         next({ name: 'login' });
     } else {
         next();

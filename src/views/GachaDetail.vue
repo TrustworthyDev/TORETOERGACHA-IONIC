@@ -1,5 +1,6 @@
 <template>
-    <Layout :hide_footer="true">
+    <!-- <Layout :hide_footer="true"> -->
+    <Layout>
         <div v-if="gacha" class="w-full relative">
             <div class="w-full h-full overflow-y-auto">
                 <div class="w-full mx-auto bg-white md:py-6 py-0">
@@ -31,10 +32,11 @@
 </template>
 
 <script>
-import { IonButton } from '@ionic/vue';
-import  Layout from './Layout/User.vue';
-import { SERVER_URL } from '../config';
 import axios from 'axios';
+import { IonButton } from '@ionic/vue';
+
+import  Layout from './Layout/Admin.vue';
+import { SERVER_URL } from '../config';
 import GachaButtons from './Parts/GachaButtons.vue';
 
 export default {
@@ -51,10 +53,8 @@ export default {
             return String(n).replace(/(.)(?=(\d{3})+$)/g,'$1,');
         },
         getGacha() {
-            axios.get(`gachas/detail/${this.$route.params.id}`).then(res => {
-                if (res.data.success) {
-                    this.gacha = res.data.gacha;
-                }
+            axios.get(`detail/gacha/${this.$route.params.id}`).then(res => {
+                this.gacha = res.data.gachas[0];
             });
         }
     },

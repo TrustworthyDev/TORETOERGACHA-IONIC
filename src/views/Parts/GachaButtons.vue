@@ -34,8 +34,10 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
+
     props: {
         gacha: Object,
     }, 
@@ -55,16 +57,23 @@ export default {
         clickgacha(number) {
             this.processing = true;
             if (this.url_edit) { return; }
-            if(this.gacha.ableCount==0) {
-                alert("サーバーが混み合っております。少し時間をおいて再度お試しください。");
-                this.processing = false;
-                return;
-            }
-            useForm({id:this.gacha.id, number}).post(route('user.gacha.start_post'), {
-                onFinish: () => {
-                    this.processing = false;
-                }
-            });
+            // if(this.gacha.ableCount==0) {
+            //     alert("サーバーが混み合っております。少し時間をおいて再度お試しください。");
+            //     this.processing = false;
+            //     return;
+            // }
+
+            axios.post(`api/gacha/start`, {
+                id: this.gacha.id,
+                number: number
+            }).then(res => {
+                console.log(res);
+            })
+            // useForm({id:this.gacha.id, number}).post(route('user.gacha.start_post'), {
+            //     onFinish: () => {
+            //         this.processing = false;
+            //     }
+            // });
         },
     }, 
     mounted() {
