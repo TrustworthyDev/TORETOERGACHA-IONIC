@@ -37,20 +37,19 @@ const getters = {
 
 const actions = {
     async LogIn({ commit }, {email, password}) {
-        axios.post(`api/auth/login`, {
-            email: email,
-            password: password
-        }).then(async res => {
+        try {
+            const res = await axios.post(`api/auth/login`, {
+                email: email,
+                password: password
+            });
             if(res.data.success == 1){
                 axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
                 commit('SET_USER', res.data.token);
+                return true;
             }
-
-        }).catch(err => {
-            this.errors = err;
-        });
-        
-        return true;
+        }
+        catch (err) { this.errors = err; }
+        return false;
     },
 
     removeEmailErrors({ commit }) {

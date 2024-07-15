@@ -86,7 +86,7 @@ export default {
 
     },
     computed: {
-        ...mapGetters(["errors"]),
+        ...mapGetters(['isAuth', 'errors']),
     },
     methods: {
         ...mapActions(["LogIn", 'removeEmailErrors', 'removePasswordErrors']),
@@ -99,17 +99,9 @@ export default {
                     password: this.password
                 });
 
-
                 if (res) {
-                    console.log("Router before navigation:", this.$router.currentRoute);
-
-                    // Ensure Vue Router is ready
                     await this.$router.isReady();
-
-                    // Force re-render
                     this.$forceUpdate();
-
-                    // Navigate after ensuring router is ready
                     this.$nextTick(() => {
                         console.log("Navigating to home...");
                         this.$router.replace('/');

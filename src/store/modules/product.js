@@ -47,6 +47,14 @@ export default {
             }).catch(err => {
                 console.error('Error exchanging to point:', err);
             });
+        },
+
+        deliverPoint: async ({commit}, data) => {
+            await axios.post('api/products/delivery', data)
+            .then(res => {
+                console.log(res.data.success);
+            })
+
         }
     },
 
