@@ -93,8 +93,8 @@ const routes = [
         component: Coupon
     },
     {
-        path: '/detail/:id',
-        name: 'detail',
+        path: '/gacha/:id',
+        name: 'gacha',
         component: GachaDetail,
     }
 ]

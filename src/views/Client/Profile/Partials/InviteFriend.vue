@@ -1,9 +1,3 @@
-<script setup>
-    import { useStore } from 'vuex';
-
-    const user = useStore().getters.user;
-</script>
-
 <template>
     <section>
         <header class="">
@@ -22,3 +16,15 @@
         </div>
     </section>
 </template>
+
+
+<script>
+    import { mapGetters } from 'vuex';
+
+    export default {
+        computed: {
+            ...mapGetters(['user'])
+        }
+    }
+
+</script>
