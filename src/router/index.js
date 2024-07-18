@@ -15,6 +15,7 @@ import Profile from '../views/Client/Profile/index.vue';
 
 import Point from '../views/Client/Point/Index.vue';
 import PointPurchase from '../views/Client/Point/Purchase.vue';
+import PointSuccess from '../views/Client/Point/Success.vue';
 
 import Products from '../views/Client/Products/Index.vue';
 
@@ -73,6 +74,11 @@ const routes = [
         component: Point
     },
     {
+        path: '/point/success',
+        name: 'point-success',
+        component: PointSuccess
+    },
+    {
         path: '/point/purchase/:id',
         name: 'point-purchase',
         component: PointPurchase
@@ -106,7 +112,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const token = localStorage.getItem('token');
-    if (!token && to.name !== 'home' && to.name !== 'login' && to.name !== 'register' && to.name !== 'forgot-password' && to.name !== 'terms-conditions' && to.name !== 'privacy-policy' && to.name !== 'notation-commercial') {
+    if (!token && to.name !== 'home' && to.name !== 'login' && to.name !== 'register' && to.name !== 'forgot-password' && to.name !== 'terms-conditions' && to.name !== 'privacy-policy' && to.name !== 'notation-commercial' && to.name !== 'point/success') {
         next({ name: 'login' });
     } else {
         next();

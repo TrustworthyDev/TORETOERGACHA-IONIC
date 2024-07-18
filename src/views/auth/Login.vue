@@ -93,6 +93,7 @@ export default {
 
         async submit() {
             this.processing = true;
+            console.log('LOGIN! - SUBMIT BUTTON');
             try {
                 const res = await this.LogIn({
                     email: this.email,

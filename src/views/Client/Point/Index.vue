@@ -4,7 +4,10 @@
             <h1 class="mb-10 font-bold text-center text-lg underline underline-offset-8 mb-4">&nbsp;&nbsp;&nbsp;ポイントを購入する&nbsp;&nbsp;&nbsp;</h1>
             <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 md:px-9 px-3 justify-center gap-4 pb-8">
                 <template v-for="(point, key) in points">
-                    <a :href="purchase_url + '/' + point.id" class="flex flex-col justify-between cursor-pointer border-2 border-solid border-gray-2000 bg-white text-center relative rounded-lg overflow-hidden">
+                    <a 
+                        @click="toPurchase(point.id)"
+                        class="flex flex-col justify-between cursor-pointer border-2 border-solid border-gray-2000 bg-white text-center relative rounded-lg overflow-hidden"
+                    >
                         <div class="text-center flex justify-center w-full">
                             <img class="inline-block object-cover w-full -my-[10%]" :src="point.image"/> 
                         </div>
@@ -13,9 +16,9 @@
                                 {{point.title}}
                             </span>
                             <div class="flex-1 flex justify-center">
-                                <button class="rounded-full py-0.3 h-fit bg-white px-3 font-bold text-xs">
+                                <span class="rounded-full py-0.3 h-fit bg-white px-3 font-bold text-xs">
                                     ¥&nbsp;{{point.amount_str}}
-                                </button>
+                                </span>
 
                             </div>
                         </div>
@@ -23,7 +26,6 @@
                 </template>
             </div>
         </div>
-
     </AdminLayout>
 </template>
 
@@ -55,6 +57,11 @@ export default {
         }
     },
     methods : {
+        async toPurchase(id) {
+            await axios.get(`api/point/purchase/` + id).then(res => {
+                window.location.replace(res.data.checkout.url);
+            });
+        }
         // checkout(id) {
         //     this.is_busy = true;
         //     const post_data = { id: id };

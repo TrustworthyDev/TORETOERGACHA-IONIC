@@ -43,6 +43,7 @@ const actions = {
                 password: password
             });
             if(res.data.success == 1){
+                console.log("LOGIN - VUEX");
                 axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
                 commit('SET_USER', res.data.token);
                 return true;

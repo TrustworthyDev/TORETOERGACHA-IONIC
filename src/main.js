@@ -28,6 +28,13 @@ import router from './router';
 import store from './store/index';
 import { SERVER_URL } from './config';
 
+// const instance = axios.create({
+//   baseURL: SERVER_URL,
+//   timeout: 1000,
+//   headers: {'X-Custom-Header': 'foobar'},
+//   httpsAgent: new (require('https').Agent)({ rejectUnauthorized: false })
+// });
+
 axios.defaults.baseURL = SERVER_URL + '';
 
 const token = localStorage.getItem('token');
