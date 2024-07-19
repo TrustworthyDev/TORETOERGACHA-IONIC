@@ -19,7 +19,6 @@ export default {
             this.elements = this.stripe.elements();
             this.card = this.elements.create('card');
             this.card.mount('#card-element');
-            this.createPaymentIntent();
         }
     }
 }
