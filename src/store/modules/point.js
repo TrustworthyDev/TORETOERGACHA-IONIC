@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { loadStripe } from '@stripe/stripe-js';
 
 var state = {
     points: []

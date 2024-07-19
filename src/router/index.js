@@ -17,6 +17,8 @@ import Point from '../views/Client/Point/Index.vue';
 import PointPurchase from '../views/Client/Point/Purchase.vue';
 import PointSuccess from '../views/Client/Point/Success.vue';
 
+import Purchase from '../views/Client/Payment/Index.vue';
+
 import Products from '../views/Client/Products/Index.vue';
 
 import Address from '../views/Client/Address/Index.vue';
@@ -72,6 +74,11 @@ const routes = [
         path: '/point',
         name: 'point',
         component: Point
+    },
+    {
+        path: '/purchase/:id',
+        name: 'purchase',
+        component: Purchase
     },
     {
         path: '/point/success',
