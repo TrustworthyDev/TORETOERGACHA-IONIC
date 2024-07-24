@@ -2,7 +2,7 @@
     <!-- <Layout :hide_footer="true"> -->
     <AdminLayout>
         <div v-if="gacha" class="w-full absolute">
-            <div class="w-full h-full overflow-y-auto">
+            <div class="w-full h-full overflow-y-hidden">
                 <div class="w-full mx-auto bg-white md:py-6 py-0">
                     <div class="mx-auto relative w-full md:max-w-[430px]">
                         <div class="flex justify-end p-6 absolute top-0 w-full">

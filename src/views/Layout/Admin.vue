@@ -16,7 +16,7 @@
                                     <XMarkIcon class="h-5 w-5" />
                                 </button>
 
-                                <div class="flex-1 overflow-y-auto">
+                                <div class="flex-1 overflow-y-hidden">
                                     <Sidebar />
                                 </div>
                             </div>

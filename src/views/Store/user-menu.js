@@ -23,11 +23,11 @@ export default [
         route_name: "coupon",
         type: "link"
     },
-    {
-        title: 'Push-Notification',
-        route_name: "notification",
-        type: 'link'
-    }
+    // {
+    //     title: 'Push-Notification',
+    //     route_name: "notification",
+    //     type: 'link'
+    // }
 ];
 
 
