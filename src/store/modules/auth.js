@@ -66,7 +66,6 @@ const actions = {
     },
 
     async checkLoginState({ commit }) { 
-        console.log('CHECK_LOGIN_STATE');
         await axios.get(`${SERVER_URL}/api/auth/user`)
         .then(res => {
             commit('SET_ISAUTH', true);
@@ -75,6 +74,10 @@ const actions = {
         }).catch(err => {
             console.error('Error checking login state:', err);
         });
+    },
+
+    UpdateUserState({commit}, user){
+        commit('RESET_USER', user);
     }
 
 };
@@ -113,7 +116,6 @@ const mutations = {
     },
 
     REMOVE_PASSWORD_ERRORS(state){
-        // state.errors.password = [];
         state.errors = { ...state.errors, password: null };
     },
 

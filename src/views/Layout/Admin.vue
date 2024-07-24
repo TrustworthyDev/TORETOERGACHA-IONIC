@@ -100,7 +100,7 @@
                         <div class="absolute w-full h-full overflow-y-auto">
                             <div class="min-h-full flex flex-col">
                                 <div :class="{ 'md:w-[760px]': !show_result_bg, 'flex-1 w-full mx-auto footer_padding bg-no-repeat bg-cover': true }">
-                                    <div :style="[show_result_bg ? { backgroundImage: result_bg_image } : {}]"
+                                    <div :style="[show_result_bg == 'gacha_result' ? { backgroundImage: result_bg_image } : {}]"
                                         class="bg-no-repeat bg-cover bg-center">
                                         <slot />
                                     </div>
@@ -237,6 +237,7 @@ export default {
         ...mapGetters(['user', 'isAuth']),
     },
     mounted() {
+        this.show_result_bg = this.$store.getters['page'];
     }
 }
 </script>

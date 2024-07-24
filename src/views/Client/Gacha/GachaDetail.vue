@@ -1,6 +1,6 @@
 <template>
     <!-- <Layout :hide_footer="true"> -->
-    <Layout>
+    <AdminLayout>
         <div v-if="gacha" class="w-full relative">
             <div class="w-full h-full overflow-y-auto">
                 <div class="w-full mx-auto bg-white md:py-6 py-0">
@@ -27,7 +27,7 @@
                 <GachaButtons :gacha="gacha" />
             </div>
         </div>
-    </Layout>
+    </AdminLayout>
 
 </template>
 
@@ -35,12 +35,13 @@
 import axios from 'axios';
 import { IonButton } from '@ionic/vue';
 
-import  Layout from './Layout/Admin.vue';
-import { SERVER_URL } from '../config';
-import GachaButtons from './Parts/GachaButtons.vue';
+import  AdminLayout from '../../Layout/Admin.vue';
+import UserLayout from '../../Layout/User.vue';
+import { SERVER_URL } from '../../../config';
+import GachaButtons from '../../Parts/GachaButtons.vue';
 
 export default {
-    components: { Layout, GachaButtons },
+    components: { AdminLayout, GachaButtons },
     data() {
         return {
             gacha: null,

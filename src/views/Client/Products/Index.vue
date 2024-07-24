@@ -31,7 +31,7 @@
                         />
                             
                         <label :for="'checkbox' + item.id" class="cursor-pointer flex items-start justify-center inline-block text-sm py-1">
-                            <img :src="item.image" class="w-32 h-32 inline-block object-contain"/>
+                            <img :src="server_url + item.image" class="w-32 h-32 inline-block object-contain"/>
                             <div class="ml-2 flex flex-col self-stretch justify-around py-3">
                                 <div class="text-sm py-1 px-3">{{item.name}}</div>
                                 <div class="text-sm py-1 px-3">{{item.rare}}</div>
@@ -161,6 +161,7 @@ import { IonCheckbox } from '@ionic/vue';
 import { mapState, mapActions, mapGetters } from 'vuex';
 
 import AdminLayout from '../../Layout/Admin.vue';
+import { SERVER_URL } from '../../../config';
 
 export default {
     components: {
@@ -183,7 +184,8 @@ export default {
             points: 0,
             clicked: 0,
             checked_count: 0,
-            processing: false
+            processing: false,
+            server_url: SERVER_URL
         }
     },
     setup() {

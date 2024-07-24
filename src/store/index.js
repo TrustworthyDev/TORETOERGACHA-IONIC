@@ -6,6 +6,7 @@ import profile from './modules/profile';
 import point from './modules/point';
 import product from './modules/product';
 import coupon from './modules/coupon';
+import page from './modules/page';
 
 // Load Vuex
 // Vue.use(Vuex);
@@ -17,6 +18,7 @@ export default new Vuex.Store({
         profile,
         point,
         product,
-        coupon
+        coupon,
+        page
     },
 });

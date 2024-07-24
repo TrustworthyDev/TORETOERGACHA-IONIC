@@ -4,7 +4,10 @@ import HomePage from '../views/HomePage.vue'
 import TermsConditions from '../views/main/TermsConditions.vue'
 import PrivacyPolicy from '../views/main/PrivacyPolicy.vue'
 import NotationCommercial from '../views/main/NotationCommercial.vue'
-import GachaDetail from '../views/GachaDetail.vue'
+import GachaDetail from '../views/Client/Gacha/GachaDetail.vue'
+import GachaVideo from '../views/Client/Gacha/Video.vue'
+import GachaResult from '../views/Client/Gacha/Result.vue'
+import GachaEnd from '../views/Client/Gacha/End.vue'
 
 // Authentication
 import Login from '../views/auth/Login.vue'
@@ -23,6 +26,8 @@ import Products from '../views/Client/Products/Index.vue';
 
 import Address from '../views/Client/Address/Index.vue';
 import Coupon from '../views/Client/Coupon/Index.vue';
+
+import Notification from '../views/Client/Notification/Index.vue';
 
 const routes = [
     {
@@ -109,6 +114,26 @@ const routes = [
         path: '/gacha/:id',
         name: 'gacha',
         component: GachaDetail,
+    },
+    {
+        path: '/gacha/video',
+        name: 'gachaVideo',
+        component: GachaVideo,
+    },
+    {
+        path: '/gacha/result',
+        name: 'gachaResult',
+        component: GachaResult,
+    },
+    {
+        path: '/gacha/end',
+        name: 'gachaEnd',
+        component: GachaEnd,
+    },
+    {
+        path: '/notification',
+        name: 'notification',
+        component: Notification
     }
 ]
 

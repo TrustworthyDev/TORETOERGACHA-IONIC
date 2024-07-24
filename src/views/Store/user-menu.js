@@ -22,6 +22,11 @@ export default [
         title: "ポイント配布",
         route_name: "coupon",
         type: "link"
+    },
+    {
+        title: 'Push-Notification',
+        route_name: "notification",
+        type: 'link'
     }
 ];
 

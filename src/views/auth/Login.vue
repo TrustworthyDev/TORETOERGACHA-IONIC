@@ -93,7 +93,6 @@ export default {
 
         async submit() {
             this.processing = true;
-            console.log('LOGIN! - SUBMIT BUTTON');
             try {
                 const res = await this.LogIn({
                     email: this.email,
@@ -104,7 +103,6 @@ export default {
                     await this.$router.isReady();
                     this.$forceUpdate();
                     this.$nextTick(() => {
-                        console.log("Navigating to home...");
                         this.$router.replace('/');
                     });
                 }

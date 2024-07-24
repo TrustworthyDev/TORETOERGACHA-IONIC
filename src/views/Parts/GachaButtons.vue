@@ -56,19 +56,18 @@ export default {
 
         clickgacha(number) {
             this.processing = true;
-            if (this.url_edit) { return; }
+            // if (this.url_edit) { return; }
             // if(this.gacha.ableCount==0) {
             //     alert("サーバーが混み合っております。少し時間をおいて再度お試しください。");
             //     this.processing = false;
             //     return;
             // }
 
-            axios.post(`api/gacha/start`, {
-                id: this.gacha.id,
-                number: number
-            }).then(res => {
-                console.log(res);
-            })
+            window.location.href = this.$router.resolve({
+                name: 'gachaVideo',
+                query: { id: this.gacha.id, number: number }
+            }).href;
+            
             // useForm({id:this.gacha.id, number}).post(route('user.gacha.start_post'), {
             //     onFinish: () => {
             //         this.processing = false;
@@ -88,9 +87,9 @@ export default {
             this.str_gacha100 = "100連";
         }
 
-        if(!this.url_edit) {
-            // this.url_card = 'user.gacha?id=' + this.gacha.id + '&cat_id=' + this.category_share.cat_route_appendix;
-        }
+        // if(!this.url_edit) {
+        //     this.url_card = 'user.gacha?id=' + this.gacha.id + '&cat_id=' + this.category_share.cat_route_appendix;
+        // }
     }
 }
 </script>
