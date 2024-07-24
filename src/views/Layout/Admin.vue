@@ -96,12 +96,15 @@
                         </div>
                     </div>
 
-                    <main class="w-full flex-1 relative">
+                    <main class="w-full flex-1 " :class="{'relative' : show_result_bg !== 'gacha_detail'}">
                         <div class="absolute w-full h-full overflow-y-auto">
                             <div class="min-h-full flex flex-col">
                                 <div :class="{ 'md:w-[760px]': !show_result_bg, 'flex-1 w-full mx-auto footer_padding bg-no-repeat bg-cover': true }">
-                                    <div :style="[show_result_bg == 'gacha_result' ? { backgroundImage: result_bg_image } : {}]"
-                                        class="bg-no-repeat bg-cover bg-center">
+                                    <div 
+                                        :style="[show_result_bg == 'gacha_result' ? { backgroundImage: result_bg_image } : {}]"
+                                        class="bg-no-repeat bg-cover bg-center" 
+                                        :class="{'relative' : show_result_bg === 'gacha_detail'}"
+                                    >
                                         <slot />
                                     </div>
                                 </div>
@@ -238,6 +241,7 @@ export default {
     },
     mounted() {
         this.show_result_bg = this.$store.getters['page'];
+        console.log(this.show_result_bg)
     }
 }
 </script>
