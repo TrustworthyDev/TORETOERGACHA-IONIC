@@ -21,9 +21,6 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 import './theme/app.css';
 import "vue3-toastify/dist/index.css";
-import 'vue-spinners/dist/vue-spinners.css'
-
-import VueSpinners from 'vue-spinners/dist/vue-spinners.common';
 
 import axios from 'axios';
 import App from './App.vue'
@@ -41,7 +38,6 @@ if (token) {
   axios.defaults.headers.common['Authorization'] = ``;
   console.log('You should login first');
 }
-
 
 const app = createApp(App)
   .use(IonicVue)

@@ -63,16 +63,16 @@ export default {
             //     return;
             // }
 
-            window.location.href = this.$router.resolve({
-                name: 'gachaVideo',
-                query: { id: this.gacha.id, number: number }
-            }).href;
-            
             // useForm({id:this.gacha.id, number}).post(route('user.gacha.start_post'), {
             //     onFinish: () => {
             //         this.processing = false;
             //     }
             // });
+
+            window.location.href = this.$router.resolve({
+                name: 'gachaVideo',
+                query: { id: this.gacha.id, number: number }
+            }).href;
         },
     }, 
     mounted() {

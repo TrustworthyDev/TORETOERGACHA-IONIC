@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services' // Add this line
 
 android {
     namespace "io.ionic.toretore.app"
@@ -40,13 +41,13 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
-    implementation project(':capacitor-community-fcm') // Add this line
-    implementation 'com.google.firebase:firebase-analytics:21.0.0' // Add this line
-    implementation 'com.google.firebase:firebase-messaging:23.0.0' // Add this line
+
+    implementation 'com.google.firebase:firebase-messaging:23.0.3' // Ensure this is the latest version
+    // implementation 'com.google.firebase:firebase-installations:17.0.0' // Ensure this is the latest version
+    // implementation 'com.google.android.gms:play-services-base:18.0.1'
 }
 
 apply from: 'capacitor.build.gradle'
-//apply plugin: 'com.google.gms.google-services' // Add this line at the bottom
 
 try {
     def servicesJSON = file('google-services.json')

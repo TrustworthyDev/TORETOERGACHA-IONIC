@@ -53,12 +53,11 @@ export default {
     methods: {
         ...mapActions(["setPage"]),
         format_number(n) {
-            // return n;
             return String(n).replace(/(.)(?=(\d{3})+$)/g,'$1,');
         },
         getGacha() {
-            axios.get(`detail/gacha/${this.$route.params.id}`).then(res => {
-                this.gacha = res.data.gachas[0];
+            axios.get(SERVER_URL + `/api/gachas/detail/${this.$route.params.id}`).then(res => {
+                this.gacha = res.data.gacha;
             });
         }
     },

@@ -89,7 +89,7 @@ export default {
             // console.log(state.playing)
         },
 
-        tryPlay( ) {
+        tryPlay() {
             if(this.payload) {
                 if (this.payload.state.playing) {
                     this.startedPlay = true;
@@ -103,6 +103,7 @@ export default {
                 number: number
             }).then(res => {
                 this.video = SERVER_URL + `/videos/${res.data.video}`;
+                console.log(this.video);
                 this.token = res.data.token;
                 this.toResult = '/gacha/result?token=' + this.token;
             }).catch(error => {

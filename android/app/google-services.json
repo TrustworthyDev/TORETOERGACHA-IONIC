@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "9341295938",
-    "project_id": "toretoregacha-9c891",
-    "storage_bucket": "toretoregacha-9c891.appspot.com"
+    "project_number": "32971799181",
+    "project_id": "toretoregacha-95467",
+    "storage_bucket": "toretoregacha-95467.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:9341295938:android:963e55790a70505f60bcdb",
+        "mobilesdk_app_id": "1:32971799181:android:9c775ac725e8d20c5c00c4",
         "android_client_info": {
           "package_name": "io.ionic.toretore.app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDkv1WvjoQZ8gsXxPJlVIxTlFjC4elb5oc"
+          "current_key": "AIzaSyCEbic5VjWk_yQ1vF-fHNzJ8zvcXWNYXu4"
         }
       ],
       "services": {
